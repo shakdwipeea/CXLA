@@ -9,12 +9,17 @@
 
   <div id="fileDisplayArea">
   </div>
+
+  <div id="done">
+    <button type="button" name="button" id="done">Done Highlighting</button>
+  </div>
 </div>
 
 <script>
   window.onload = function () {
     var fileInput = document.getElementById('fileInput');
     var fileDisplayArea = document.getElementById('fileDisplayArea');
+    var done = document.getElementById('done');
 
     fileInput.addEventListener('change', function (e) {
       var file = fileInput.files[0];
@@ -30,5 +35,12 @@
       reader.readAsBinaryString(file);
 
     })
+
+    done.addEventListener('click', function (e) {
+      console.log(window.getSelection().toString()  );
+    })
+
+
+
   }
 </script>
