@@ -125,34 +125,53 @@
     };
 
 
-    axios.get('/')
-        .then(function (response) {
-            var valueOne = response.data.r;
-            var keys = Object.keys(valueOne);
+    // axios.get('/')
+    //     .then(function (response) {
+    //         var valueOne = response.data.r;
+    //         var keys = Object.keys(valueOne);
 
-            plots.time1 = valueOne[keys[0]];
-            plots.time2 = valueOne[keys[1]];
+    //         plots.time1 = valueOne[keys[0]];
+    //         plots.time2 = valueOne[keys[1]];
 
-                var length = valueOne[keys[0]].length;
+    //             var length = valueOne[keys[0]].length;
 
-                for(var i = 0; i < length; i++) {
-                    ChartData.data.datasets[i].data = [plots.time1[i], plots.time2[i]];
+    //             for(var i = 0; i < length; i++) {
+    //                 ChartData.data.datasets[i].data = [plots.time1[i], plots.time2[i]];
+    //             }
+
+
+    //         /*ChartData.data.datasets[0].data = plots.time1.map(function (value) {
+    //             return parseInt(value);
+    //         });
+
+    //         ChartData.data.datasets[1].data = plots.time2.map(function (value) {
+    //             return parseInt(value);
+    //         });*/
+
+    //             ChartData.data.labels = keys;
+
+    //             var myLineChart = new Chart(ctx).Line(ChartData.data, ChartData.options);
+    //         console.log(plots);
+    //     });
+
+
+
+
+    axios.get('/data')
+        .then(function  (response) {
+            var data = response.data.data.slice(0,5);
+            plots.time1 = data;
+            ChartData.data.datasets[0].data = data.map(function  (value) {
+                if (!isNaN(value)) {
+                    return value;
+                } else {
+                    return 0;
                 }
-
-
-            /*ChartData.data.datasets[0].data = plots.time1.map(function (value) {
-                return parseInt(value);
             });
 
-            ChartData.data.datasets[1].data = plots.time2.map(function (value) {
-                return parseInt(value);
-            });*/
+         var myLineChart = new Chart(ctx).Line(ChartData.data, ChartData.options);
 
-                ChartData.data.labels = keys;
-
-                var myLineChart = new Chart(ctx).Line(ChartData.data, ChartData.options);
-            console.log(plots);
-        });
+        })
 
 </script>
 </body>
