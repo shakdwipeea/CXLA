@@ -17,10 +17,17 @@
         time2: [0, 0, 0]
     };
 
+    var arr = new Array(20);
+
+    for (var i = 0; i < arr.length; i++) {
+        arr[i] = Math.round(i / 19 * 500) / 100;
+    }
+
+    console.log(arr)
     var ChartData = {
 
         data: {
-            labels: ["08:45:08", "", "", "", "08:45:15"],
+            labels: arr,
             datasets: [
                 {
                     label: "My First dataset",
@@ -159,8 +166,9 @@
 
     axios.get('/data')
         .then(function  (response) {
-            var data = response.data.data.slice(0,5);
+            var data = response.data.data;
             plots.time1 = data;
+
             ChartData.data.datasets[0].data = data.map(function  (value) {
                 if (!isNaN(value)) {
                     return value;
@@ -168,7 +176,7 @@
                     return 0;
                 }
             });
-
+            //    ChartData.data.labels = ChartData.data.datasets[0].data.length;
          var myLineChart = new Chart(ctx).Line(ChartData.data, ChartData.options);
 
         })

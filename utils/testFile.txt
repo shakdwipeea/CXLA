@@ -8,19 +8,19 @@ SSF: Conn (Srvr 3 Clnt 0) U:0
 CM:  Conn (Srvr 9 Clnt 0) Sessions PCB 0 NATPCB 0
 Z(SIP[0], C[0], SSL[0] Server[0] SIPDIP[0] DIP[0] SO[0])
 Mon: Probes: 0, Failed: 0
-VIP(127.0.0.2:53:DOWN:WEIGHTEDRR): Hits(10, 10/sec) Mbps(0.00) Pers(OFF) Err(0) SO(0) LConn_Best [Idx:SubIdx] 1024:3
-VIP(127.0.1.2:53:DOWN:WEIGHTEDRR): Hits(30, 30/sec) Mbps(0.00) Pers(OFF) Err(0) SO(0) LConn_Best [Idx:SubIdx] 1024:3
-VIP(102.102.11.1:80:UP:WEIGHTEDRR): Hits(0, 40/sec) Mbps(0.00) Pers(RULE) Err(0) SO(0) LConn_Best [Idx:SubIdx] 1024:3
-VIP(102.103.12.1:80:UP:WEIGHTEDRR): Hits(0, 20/sec) Mbps(0.00) Pers(RULE) Err(0) SO(0) LConn_Best [Idx:SubIdx] 1024:3
+VIP(127.0.0.2:53:DOWN:WEIGHTEDRR): Hits(10, 10/sec) Mbps(90.00) Pers(OFF) Err(0) SO(0) LConn_Best [Idx:SubIdx] 1024:3
+VIP(127.0.1.2:53:DOWN:WEIGHTEDRR): Hits(30, 30/sec) Mbps(30.00) Pers(OFF) Err(0) SO(0) LConn_Best [Idx:SubIdx] 1024:3
+VIP(102.102.11.1:80:UP:WEIGHTEDRR): Hits(0, 40/sec) Mbps(78.00) Pers(RULE) Err(0) SO(0) LConn_Best [Idx:SubIdx] 1024:3
+VIP(102.103.12.1:80:UP:WEIGHTEDRR): Hits(0, 20/sec) Mbps(67.00) Pers(RULE) Err(0) SO(0) LConn_Best [Idx:SubIdx] 1024:3
 VIP(102.105.12.1:80:UP:WEIGHTEDRR): Hits(0, 40/sec) Mbps(0.00) Pers(RULE) Err(0) SO(0) LConn_Best [Idx:SubIdx] 1024:3
 S(100.100.12.10:80:UP) Hits(0, 0/sec, P[0, 0/sec]) ATr(0:0) Mbps(0.00) BWlmt(0 kbits) RspTime(0.00 ms) Load(0) LConn_Idx: (C:0; V:0,I:1, B:0, X:0, SI:0)
-S(100.100.12.9:80:UP) Hits(0, 0/sec, P[0, 0/sec]) ATr(0:0) Mbps(0.00) BWlmt(0 kbits) RspTime(0.00 ms) Load(0) LConn_Idx: (C:0; V:0,I:1, B:0, X:0, SI:0)
+S(100.100.12.9:80:UP) Hits(6, 0/sec, P[0, 0/sec]) ATr(0:0) Mbps(0.00) BWlmt(0 kbits) RspTime(0.00 ms) Load(0) LConn_Idx: (C:0; V:0,I:1, B:0, X:0, SI:0)
 S(100.100.12.8:80:UP) Hits(0, 0/sec, P[0, 0/sec]) ATr(0:0) Mbps(0.00) BWlmt(0 kbits) RspTime(0.00 ms) Load(0) LConn_Idx: (C:0; V:0,I:1, B:0, X:0, SI:0)
 S(100.100.12.7:80:UP) Hits(0, 0/sec, P[0, 0/sec]) ATr(0:0) Mbps(0.00) BWlmt(0 kbits) RspTime(0.00 ms) Load(0) LConn_Idx: (C:0; V:0,I:1, B:0, X:0, SI:0)
-S(100.100.12.6:80:UP) Hits(0, 0/sec, P[0, 0/sec]) ATr(0:0) Mbps(0.00) BWlmt(0 kbits) RspTime(0.00 ms) Load(0) LConn_Idx: (C:0; V:0,I:1, B:0, X:0, SI:0)
+S(100.100.12.6:80:UP) Hits(13, 0/sec, P[0, 0/sec]) ATr(0:0) Mbps(0.00) BWlmt(0 kbits) RspTime(0.00 ms) Load(0) LConn_Idx: (C:0; V:0,I:1, B:0, X:0, SI:0)
 S(100.100.12.5:80:UP) Hits(0, 0/sec, P[0, 0/sec]) ATr(0:0) Mbps(0.00) BWlmt(0 kbits) RspTime(0.00 ms) Load(0) LConn_Idx: (C:0; V:0,I:1, B:0, X:0, SI:0)
-S(100.100.12.4:80:UP) Hits(0, 0/sec, P[0, 0/sec]) ATr(0:0) Mbps(0.00) BWlmt(0 kbits) RspTime(0.00 ms) Load(0) LConn_Idx: (C:0; V:0,I:1, B:0, X:0, SI:0)
-S(100.100.12.3:80:UP) Hits(0, 0/sec, P[0, 0/sec]) ATr(0:0) Mbps(0.00) BWlmt(0 kbits) RspTime(0.00 ms) Load(0) LConn_Idx: (C:0; V:0,I:1, B:0, X:0, SI:0)
+S(100.100.12.4:80:UP) Hits(0, 0/sec, P[0, 0/sec]) ATr(0:0) Mbps(6.00) BWlmt(0 kbits) RspTime(0.00 ms) Load(0) LConn_Idx: (C:0; V:0,I:1, B:0, X:0, SI:0)
+S(100.100.12.3:80:UP) Hits(14, 0/sec, P[0, 0/sec]) ATr(0:0) Mbps(0.00) BWlmt(0 kbits) RspTime(0.00 ms) Load(0) LConn_Idx: (C:0; V:0,I:1, B:0, X:0, SI:0)
 S(100.100.12.2:80:UP) Hits(0, 0/sec, P[0, 0/sec]) ATr(0:0) Mbps(0.00) BWlmt(0 kbits) RspTime(0.00 ms) Load(0) LConn_Idx: (C:0; V:0,I:1, B:0, X:0, SI:0)
 S(100.100.12.1:80:UP) Hits(0, 0/sec, P[0, 0/sec]) ATr(0:0) Mbps(0.00) BWlmt(0 kbits) RspTime(0.00 ms) Load(0) LConn_Idx: (C:0; V:0,I:1, B:0, X:0, SI:0)
 -------------------------------------------------------
@@ -37,12 +37,12 @@ SSF: Conn (Srvr 3 Clnt 0) U:0
 CM:  Conn (Srvr 9 Clnt 0) Sessions PCB 0 NATPCB 0
 Z(SIP[0], C[0], SSL[0] Server[0] SIPDIP[0] DIP[0] SO[0])
 Mon: Probes: 0, Failed: 0
-VIP(127.0.0.2:53:DOWN:WEIGHTEDRR): Hits(10, 30/sec) Mbps(0.00) Pers(OFF) Err(0) SO(0) LConn_Best [Idx:SubIdx] 1024:3
-VIP(127.0.1.2:53:DOWN:WEIGHTEDRR): Hits(20, 20/sec) Mbps(0.00) Pers(OFF) Err(0) SO(0) LConn_Best [Idx:SubIdx] 1024:3
-VIP(102.102.11.1:80:UP:WEIGHTEDRR): Hits(30, 10/sec) Mbps(0.00) Pers(RULE) Err(0) SO(0) LConn_Best [Idx:SubIdx] 1024:3
-VIP(102.103.12.1:80:UP:WEIGHTEDRR): Hits(0, 60/sec) Mbps(0.00) Pers(RULE) Err(0) SO(0) LConn_Best [Idx:SubIdx] 1024:3
+VIP(127.0.0.2:53:DOWN:WEIGHTEDRR): Hits(10, 30/sec) Mbps(30.00) Pers(OFF) Err(0) SO(0) LConn_Best [Idx:SubIdx] 1024:3
+VIP(127.0.1.2:53:DOWN:WEIGHTEDRR): Hits(20, 20/sec) Mbps(40.00) Pers(OFF) Err(0) SO(0) LConn_Best [Idx:SubIdx] 1024:3
+VIP(102.102.11.1:80:UP:WEIGHTEDRR): Hits(30, 10/sec) Mbps(20.00) Pers(RULE) Err(0) SO(0) LConn_Best [Idx:SubIdx] 1024:3
+VIP(102.103.12.1:80:UP:WEIGHTEDRR): Hits(0, 60/sec) Mbps(70.00) Pers(RULE) Err(0) SO(0) LConn_Best [Idx:SubIdx] 1024:3
 VIP(102.105.12.1:80:UP:WEIGHTEDRR): Hits(0, 30/sec) Mbps(0.00) Pers(RULE) Err(0) SO(0) LConn_Best [Idx:SubIdx] 1024:3
-S(100.100.12.10:80:UP) Hits(0, 0/sec, P[0, 0/sec]) ATr(0:0) Mbps(0.00) BWlmt(0 kbits) RspTime(0.00 ms) Load(0) LConn_Idx: (C:0; V:0,I:1, B:0, X:0, SI:0)
+S(100.100.12.10:80:UP) Hits(0, 0/sec, P[0, 0/sec]) ATr(0:0) Mbps(30.00) BWlmt(30 kbits) RspTime(0.00 ms) Load(0) LConn_Idx: (C:0; V:0,I:1, B:0, X:0, SI:0)
 S(100.100.12.9:80:UP) Hits(0, 0/sec, P[0, 0/sec]) ATr(0:0) Mbps(0.00) BWlmt(0 kbits) RspTime(0.00 ms) Load(0) LConn_Idx: (C:0; V:0,I:1, B:0, X:0, SI:0)
 S(100.100.12.8:80:UP) Hits(0, 0/sec, P[0, 0/sec]) ATr(0:0) Mbps(0.00) BWlmt(0 kbits) RspTime(0.00 ms) Load(0) LConn_Idx: (C:0; V:0,I:1, B:0, X:0, SI:0)
 S(100.100.12.7:80:UP) Hits(0, 0/sec, P[0, 0/sec]) ATr(0:0) Mbps(0.00) BWlmt(0 kbits) RspTime(0.00 ms) Load(0) LConn_Idx: (C:0; V:0,I:1, B:0, X:0, SI:0)

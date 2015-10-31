@@ -4,7 +4,8 @@ var express = require('express'),
 
 
 router.get('/', function  (req, res) {
-	dataService("/Users/raghavrastogi/Desktop/testFile.txt", function  (arr) {
+	console.log(__dirname);
+	dataService(__dirname + "/../utils/testFile.txt", function  (arr) {
 		res.json({
 			"data": arr
 		});

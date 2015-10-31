@@ -30,14 +30,16 @@
       reader.onload = function (e) {
         console.log(e);
         fileDisplayArea.innerHTML = e.target.result;
+        var m = e.target.result.split('\n').join('<br />');
+        fileDisplayArea.innerHTML = m;
       }
 
-      reader.readAsBinaryString(file);
+      reader.readAsText(file);
 
     })
 
     done.addEventListener('click', function (e) {
-      console.log(window.getSelection().toString()  );
+      console.log(window.getSelection().toString());
     })
 
 
