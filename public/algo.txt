@@ -1,0 +1,23 @@
+
+INPUT FILE:
+It will consists of log file with snapshots corresponding to different timestamps.It can be any log file but prerequiste
+that it should have timestamps.
+
+
+ALGORITHM:
+1) First the user will select the log file he/she wishes to perform the analysis.
+
+2) The log file uploaded will be shown in browser. If the log file is too large only a particular snapshot is shown to
+    user.
+
+3) The log file will be parsed and didvided into chunks based on the metadata i.e in this case timestamp(or any other metadata), but user has to
+    ensure the availability of metadata.
+
+4) Next the user will highlight the the region of his/her interest of analysis.
+
+5) Based on the highlighted text a regex will be generated automatically,then whole log file will be parsed based on
+    generated regex.
+
+6) After parsing,based on highlighted text graphs will be generated.
+
+7)
