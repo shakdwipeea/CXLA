@@ -4,9 +4,16 @@ var router = express.Router();
 var fetchValues = require('../utils/parser');
 
 router.get('/', function (req, res) {
-    fetchValues(res, function (data) {
+    fetchValues.log(res, function (data) {
       res.json(data);
     });
 });
+
+router.post('/', function (req,res) {
+
+    fetchValues.sea
+});
+
+
 
 module.exports = router;
