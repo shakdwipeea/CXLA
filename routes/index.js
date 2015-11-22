@@ -9,11 +9,17 @@ router.get('/', function (req, res) {
     });
 });
 
-router.post('/', function (req,res) {
-
-    fetchValues.sea
+router.get('/error', (req, res) => {
+    res.render("index");
 });
 
+router.post('/', function (req,res) {
 
+    //fetchValues.sea
+});
+
+router.get('/gui', (req, res) => {
+    res.render("gui");
+});
 
 module.exports = router;

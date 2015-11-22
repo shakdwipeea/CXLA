@@ -5,5 +5,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="CXLA node_modules" level="project" />
+    <orderEntry type="library" name="axios" level="application" />
+    <orderEntry type="library" name="superagent" level="application" />
   </component>
 </module>

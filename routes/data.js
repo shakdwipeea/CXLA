@@ -17,7 +17,7 @@ router.get('/', function (req, res) {
 
 router.post('/upload', function (req,res,next) {
 
-
+    console.log(req.body, req.files);
    var old_path = "public/" + req.files.file.name,
        new_path = "public/"+ req.files.file.originalname;
 

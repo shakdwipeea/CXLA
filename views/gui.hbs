@@ -2,47 +2,65 @@
 <p>Welcome to {{title}}</p
 
 <div>
-  <div>
-    <label for="fileInput"> Upload a File </label>
-    <input type="file" id="fileInput">
-  </div>
+    <div>
+        <label for="fileInput"> Upload a File </label>
+        <input type="file" id="fileInput">
+    </div>
 
-  <div id="fileDisplayArea">
-  </div>
+    <div id="fileDisplayArea">
+    </div>
 
-  <div id="done">
-    <button type="button" name="button" id="done">Done Highlighting</button>
-  </div>
+    <div id="done">
+        <button type="button" name="button" id="done">Done Highlighting</button>
+    </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/superagent/1.2.0/superagent.js"></script>
+
 <script>
-  window.onload = function () {
-    var fileInput = document.getElementById('fileInput');
-    var fileDisplayArea = document.getElementById('fileDisplayArea');
-    var done = document.getElementById('done');
+    window.onload = function () {
+        var fileInput = document.getElementById('fileInput');
+        var fileDisplayArea = document.getElementById('fileDisplayArea');
+        var done = document.getElementById('done');
 
-    fileInput.addEventListener('change', function (e) {
-      var file = fileInput.files[0];
-      var reader = new FileReader();
+        fileInput.addEventListener('change', function (e) {
+            var file = fileInput.files[0];
+            var reader = new FileReader();
 
-      console.log(file);
+            console.log(file);
 
-      reader.onload = function (e) {
-        console.log(e);
-        fileDisplayArea.innerHTML = e.target.result;
-        var m = e.target.result.split('\n').join('<br />');
-        fileDisplayArea.innerHTML = m;
-      }
+            reader.onload = function (e) {
+                console.log(e);
+                fileDisplayArea.innerHTML = e.target.result;
+                fileDisplayArea.innerHTML = e.target.result.split('\n')
+                        .splice(0, 10)
+                        .join("<br />");
+            };
 
-      reader.readAsText(file);
+            reader.readAsText(file);
 
-    })
+            var formData = new FormData();
+            var files = fileInput.files;
 
-    done.addEventListener('click', function (e) {
-      console.log(window.getSelection().toString());
-    })
+            for(var key in files) {
+                if (files.hasOwnProperty(key) && files[key] instanceof File) {
+                    formData.append(key, files[key]);
+                }
+            }
 
+            superagent
+                    .post("/data/upload")
+                    .type('form')
+                    .send(formData)
+                    .end(function (err,response) {
+                        console.log("Error",err,"Response",response);
+                    });
 
+        });
 
-  }
+        done.addEventListener('click', function (e) {
+            console.log(window.getSelection().toString());
+        })
+
+    }
 </script>
