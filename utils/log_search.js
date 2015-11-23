@@ -33,6 +33,13 @@ function search_prototype_single_highlight(filename,callback){
 
 
 function search_prototype_double_highlight(param,filename, callback) {
+    result = {};
+    arr = [];
+    attrib = {};
+    num = [];
+    final_num = [];
+    final_data = {};
+
     var highlighted_text = param.highlighted_text;
     var highlighted_text_2 = param.highlighted_text_2;
     var h_1 = highlighted_text;
@@ -83,10 +90,14 @@ function search_prototype_double_highlight(param,filename, callback) {
                // console.log(result[highlighted_text_2]);
                 //console.log(num);
                 console.log("Result is ", result[highlighted_text_2]);
-
                 callback(final_data);
                 var time_taken = new Date().getTime() - start;
                 console.log('Time ', time_taken);
+
+
+
+
+
 
             });
 
