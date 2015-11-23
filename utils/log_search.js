@@ -35,6 +35,10 @@ function search_prototype_single_highlight(filename,callback){
 function search_prototype_double_highlight(param,filename, callback) {
     var highlighted_text = param.highlighted_text;
     var highlighted_text_2 = param.highlighted_text_2;
+    var h_1 = highlighted_text;
+    var h_2 = highlighted_text_2;
+    console.log(highlighted_text);
+    console.log(highlighted_text_2);
     time_stam.find_index_of_time(filename, function (time_stam) {
         //console.log(time_stam);
 
@@ -43,8 +47,8 @@ function search_prototype_double_highlight(param,filename, callback) {
 
         stream
             .on('data', function (data) {
-                findOccurence(data, highlighted_text);
-                findOccurence(data, highlighted_text_2);
+                findOccurence(data, highlighted_text,h_2);
+                findOccurence(data, highlighted_text_2,h_2);
             })
 
             .addListener('close', function () {
@@ -65,7 +69,7 @@ function search_prototype_double_highlight(param,filename, callback) {
                     final_num.push(num[attrib[key]]);
                 }
 
-                k = 0;
+                var k = 0;
 
                 for (var key in time_stam) {
 
@@ -76,9 +80,9 @@ function search_prototype_double_highlight(param,filename, callback) {
                     k++;
 
                 }
-                console.log(result[highlighted_text_2]);
-                console.log(num);
-                console.log("Result is ", result[highlighted_text_2].length, attrib, final_num, final_data);
+               // console.log(result[highlighted_text_2]);
+                //console.log(num);
+                console.log("Result is ", result[highlighted_text_2]);
 
                 callback(final_data);
                 var time_taken = new Date().getTime() - start;
@@ -90,7 +94,7 @@ function search_prototype_double_highlight(param,filename, callback) {
 }
 
 //function for generating regex
-function findOccurence(data, keyword) {
+function findOccurence(data, keyword,h) {
     var value = data.toString('utf-8');
     var new_regex = [];
 
@@ -119,14 +123,14 @@ function findOccurence(data, keyword) {
     var str = new_regex.join("");
     var hre = new RegExp(str, 'g');
 
-    findIndex(hre, value, keyword, function (keyword, indices) {
+    findIndex(hre, value, keyword,h, function (keyword, indices) {
         result[keyword] = indices;
     });
 
 }
 
 //function for searching using inverted index key map
-function findIndex(pattern, value, keyword, cb) {
+function findIndex(pattern, value, keyword,h, cb) {
     process.nextTick(function () {
         var indices = [];
         //console.log(pattern.exec(value));
@@ -134,7 +138,7 @@ function findIndex(pattern, value, keyword, cb) {
             //console.log("match found at " + match.index);
             var matchAt = match.index;
 
-            if (keyword == highlighted_text_2) {
+            if (keyword == h) {
 
                 var temp_num = [];
                 for (var i = matchAt; i < value.length - 1; i++) {

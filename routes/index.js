@@ -14,7 +14,6 @@ router.get('/error', (req, res) => {
 });
 
 router.post('/', function (req,res) {
-
     //fetchValues.sea
 });
 

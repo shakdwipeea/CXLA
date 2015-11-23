@@ -9,6 +9,7 @@ var users = require('./routes/users');
 var fileLines = require('./routes/fileLines');
 
 var cors = require('cors');
+var multer = require('multer');
 var app = express();
 
 app.use(cors());
@@ -22,6 +23,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(multer({dest: './public/data'}).single('file'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
