@@ -40,8 +40,8 @@ function search_prototype_double_highlight(param,filename, callback) {
     final_num = [];
     final_data = {};
 
-    var highlighted_text = param.highlighted_text;
-    var highlighted_text_2 = param.highlighted_text_2;
+    var highlighted_text = param[0];
+    var highlighted_text_2 = param[1];
     var h_1 = highlighted_text;
     var h_2 = highlighted_text_2;
     console.log(highlighted_text);
