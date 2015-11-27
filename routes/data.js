@@ -1,51 +1,51 @@
 var express = require('express'),
     router = express.Router(),
-    fs = require('fs')
+    fs = require('fs');
     dataService = require('../utils/log_search');
+    _ = require('lodash');
+    async = require('async');
 
 
-/*
-router.get('/', function (req, res) {
-    //console.log(__dirname);
-    dataService.logAnalyser(__dirname + "/../utils/testFile.txt", function (arr) {
-        res.json({
-            "data": arr
-        });
-    });
-});
-*/
 
 
-router.post('/upload', function (req,res,next) {
+router.post('/upload', function (req, res, next) {
 
-    console.log(req.body, req.file);
-   var old_path = __dirname+"/../public/data/" + req.file.filename;
+    //console.log(req.body, req.file);
+    var old_path = __dirname + "/../public/data/" + req.file.filename;
     console.log(old_path);
-    var new_path = __dirname+"/../public/data/"+ req.file.originalname;
+    var new_path = __dirname + "/../public/data/" + req.file.originalname;
     console.log(new_path);
 
     fs.rename(old_path, new_path, function (err) {
-        console.log("HI",err);
         if (err) {
             console.log(err);
             res.json({err: err});
         }
-        else{
-            console.log("HIfehf");
-            res.json({msg:"uploaded"});
+        else {
+            res.json({msg: "uploaded"});
         }
     });
 
 });
 
+function getResults(result,f,cb){
+
+    dataService.logAnalyser(result, __dirname + "/../public/data/" + f, function (arr) {
+        console.log(arr);
+        cb(err,arr);
+    });
+
+}
 
 router.post('/', function (req, res, next) {
 
-    dataService.logAnalyser(req.body,__dirname+"/../public/data/"+req.body.file_name, function (arr) {
-        res.json({
-            "data": arr
-        });
+    var d = req.body.data;
+    var f = req.body.file_name;
+    console.log(d,f);
+    async.map(_.chunk(d,2),f,getResults, function (err,data) {
+        cb(err,{data:data});
     });
+
 });
 
 module.exports = router;
