@@ -1,26 +1,47 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
 
-<div id="fileReader">
-    <div>
-        <label for="fileInput"> Upload a File </label>
-        <input type="file" id="fileInput">
+<html>
+<head>
+    <title>The Log Analyser</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <style>
+        .space {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="jumbotron">
+        <h1>Log Analyser</h1>
+    </div>
+    <div class="" id="fileReader">
+        <div class="row panel" id="keywords">
+
+        </div>
+
+        <div class="row">
+        <div class="col-lg-4">
+            <input class="btn btn-default" class="input-control" type="file" id="fileInput">
+        </div>
+
+        <div class="col-lg-4">
+            <button class="btn btn-default" type="submit" name="button" id="next">Next</button>
+        </div>
+
+        <div class="col-lg-4" id="done">
+            <button class="btn btn-primary" type="submit" name="button" id="done">Done Highlighting</button>
+        </div></div>
+
+    <div class="panel" id="fileDisplayArea">
     </div>
 
-    <div id="fileDisplayArea">
-    </div>
-    <div>
-        <button type="submit" name="button" id="next">Next</button>
-    </div>
-
-    <div id="done">
-        <button type="submit" name="button" id="done">Done Highlighting</button>
-    </div>
+</div>
 </div>
 
 <div id="chart">
     <canvas id="myChart" width="1000" height="400"></canvas>
-    <div class="time_axis">------------->   Time (secs)</div>
+    <div class="time_axis"> ------------->   Time (secs)</div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/superagent/1.2.0/superagent.js"></script>
@@ -62,7 +83,7 @@
             }
 
             superagent
-                    .post('/data/upload')
+                    .post('http://192.168.0.100/data/upload')
                     .attach('file', file, file.name)
                     .end(function(err, res) {
                         console.log(err);
@@ -75,13 +96,13 @@
 
         done.addEventListener('click', function (e) {
 
-            if (keywords.length == 2) {
+            if (keywords.length % 2 == 0) {
+
                 superagent
-                        .post('/data')
+                        .post('http://192.168.0.100/data')
                         .send({
                             file_name: fileInput.files[0].name,
-                            highlighted_text: keywords[0],
-                            highlighted_text_2: keywords[1]
+                            data: keywords
                         })
                         .end(function (err, res) {
                             console.log(err, res);
@@ -89,7 +110,7 @@
                             renderChart(res.body.data);
                         });
             } else {
-                console.log('Fuck you');
+                console.log('you');
             }
 
 
@@ -98,6 +119,7 @@
         next.addEventListener('click', function (e) {
             var text = window.getSelection().toString();
             keywords.push(text);
+            populateKeywordHTML();
         });
 
 
@@ -195,5 +217,28 @@
 
         }
 
+        function populateKeywordHTML () {
+            var keywordsArea = document.getElementById("keywords");
+            var i = 0;
+            keywordsArea.innerHTML = "";
+            keywords.map(function (key) {
+                i++;
+                var div = document.createElement("div");
+                div.classList.add("label");
+                div.classList.add("label-default");
+                div.classList.add("space");
+                div.innerHTML = key;
+
+                if (i % 2 == 0) {
+                    var br = document.createElement("br");
+                    div.appendChild(br);
+                }
+
+                keywordsArea.appendChild(div);
+            })
+        }
+
     }
 </script>
+</body>
+</html>
