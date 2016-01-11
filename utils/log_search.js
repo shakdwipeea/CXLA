@@ -95,10 +95,6 @@ function search_prototype_double_highlight(param,filename, callback) {
                 console.log('Time ', time_taken);
 
 
-
-
-
-
             });
 
     });

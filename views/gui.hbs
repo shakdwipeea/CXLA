@@ -44,9 +44,9 @@
     <div class="time_axis"> ------------->   Time (secs)</div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/superagent/1.2.0/superagent.js"></script>
+<script src="superagent.js"></script>
 <script src="bower_components/Chart.js/Chart.js"></script>
-<script src="bower_components/axios/dist/axios.js"></script>
+<script src="bower_componentqs/axios/dist/axios.js"></script>
 <script>
     window.onload = function () {
         var fileInput = document.getElementById('fileInput');
@@ -83,7 +83,7 @@
             }
 
             superagent
-                    .post('http://192.168.0.100/data/upload')
+                    .post('/data/upload')
                     .attach('file', file, file.name)
                     .end(function(err, res) {
                         console.log(err);
@@ -99,7 +99,7 @@
             if (keywords.length % 2 == 0) {
 
                 superagent
-                        .post('http://192.168.0.100/data')
+                        .post('/data')
                         .send({
                             file_name: fileInput.files[0].name,
                             data: keywords
@@ -134,9 +134,26 @@
             var arr = [];
             var d = [];
 
+            var dataSetChartData = [];
+            dataSetChartData = array.map(function (arr) {
+                var t = {
+                    label: "My First dataset",
+                    fillColor: "rgba(220,220,220,0.2)",
+                    strokeColor: "rgba(0,0,0,1)",
+                    pointColor: "rgba(220,220,220,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    data: arr
+                };
+                return t;
+            });
+
             var ChartData = {
                 data: {
                     labels: arr,
+                    datasets: dataSetChartData
+                    /*,
                     datasets: [
                         {
                             label: "My First dataset",
@@ -149,7 +166,7 @@
                             data: d
                         }
 //
-                    ]
+                    ]*/
                 },
                 options: {
 
@@ -202,7 +219,7 @@
             };
 
 
-            var data = dataFromHBS;
+            /*var data = dataFromHBS;
             console.log(data);
             //plots.time1 = data;
             for (var key in data) {
@@ -211,8 +228,13 @@
 
             for (var key in data) {
                 d.push(data[key]);
+            }*/
+
+            for (var i = 0; i < arr.length; i++) {
+                ChartData.data.datasets[i].data = arr[i];
             }
-            ChartData.data.datasets[0].data = d;
+
+            //ChartData.data.datasets[0].data = d;
             var myLineChart = new Chart(ctx).Line(ChartData.data, ChartData.options);
 
         }
