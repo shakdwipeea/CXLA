@@ -20,8 +20,8 @@ VIP(102.102.11.1:80:UP:WEIGHTEDRR): Hits(0, 0/sec) Mbps(0.00) Pers(RULE) Err(1) 
         Pkt(0/sec, 0 bytes) actSvc(10) DefPol(RR) override(0) newlyUP(0)
         Conn: Clt(0, 0/sec, OE[0]) Svr(0) SQ(Total: 0 OnVserver: 0 OnServices: 0)
         slimit_SO: (Sothreshhold: 0 [Ex: 0]  Consumed: [Ex: 0 Borrowed: 0 TotActiveConn: 0] Available: 0
-S(100.100.12.10:80:UP) Hits(0, 0/sec, P[0, 0/sec]) ATr(0:0) Mbps(0.00) BWlmt(0 kbits) RspTime(0.00 ms) Load(0) LConn_Idx: (C:0; V:0,I:1, B:0, X:0, SI:0)
-        Other: Pkt(0/sec, 0 bytes) Wt(1) Wt(Reverse Polarity)(10000)
+S(100.100.12.10:80:UP) Hits(0, 0/sec, P[0, 0/sec]) ATr(0:0) Mbps(90.00) BWlmt(0 kbits) RspTime(50.00 ms) Load(0) LConn_Idx: (C:0; V:0,I:1, B:0, X:0, SI:0)
+        Other: Pkt(10/sec, 0 bytes) Wt(1) Wt(Reverse Polarity)(10000)
         Conn: CSvr(0, 0/sec) MCSvr(0) OE(0) E(0) RP(0) SQ(0)
         slimit_maxClient: (MaxClt: 0 [Ex: 0]  Consumed: [Ex: 0 Borrowed: 0 TotActiveConn: 0] Available: 0)
         newlyUP_mode: NO, Pending: 0, update: 0x0, incr_time: 0x0, incr_count: 0

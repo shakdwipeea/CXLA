@@ -8,12 +8,13 @@ var find_index_of_metadata = function (fileName, cb) {
     stream.on('data', function (data) {
         var value = data.toString('utf-8');
         //var old_regex = /([A-Z]{1}[a-z]{2})\s([A-Z]{1}[a-z]{2})\s([0-9]{1,2})\s(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)\s([0-9]{4})/g;
-        var regex = /([A-Z]{1}[a-z]{2})?\s?([A-Z]{1}[a-z]{2})?\s([0-9]{1,2})\s(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)\s?([0-9]{4})?/g
+        var regex = /([A-Z]{1}[a-z]{2})?\s?([A-Z]{1}[a-z]{2})?\s([0-9]{1,2})\s(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)\s?([0-9]{4})?/g;
 
         var i = 1;
         while ((match = regex.exec(value)) !== null) {
 
-            indices[match[0] + "_" + i.toString()] = match.index;
+            if(!(match[0].trim() in indices))
+                indices[match[0].trim()] = match.index;
             i++;
         }
     });

@@ -28,24 +28,26 @@ router.post('/upload', function (req, res, next) {
 
 });
 
-function getResults(result,f,cb){
+/*function getResults(result,f,cb){
 
     dataService.logAnalyser(result, __dirname + "/../public/data/" + f, function (arr) {
         console.log(arr);
         cb(err,arr);
     });
 
-}
+}*/
 
-router.post('/', function (req, res, next) {
+
+/*router.post('/', function (req, res, next) {
 
     var d = req.body.data;
     var f = req.body.file_name;
-    console.log(d,f);
-    async.map(_.chunk(d,2),f,getResults, function (err,data) {
-        cb(err,{data:data});
-    });
 
-});
+    var arr = _.chunk(d,2);
+    for(var j= 0;j<arr.length;j++){
+
+    }
+
+});*/
 
 module.exports = router;

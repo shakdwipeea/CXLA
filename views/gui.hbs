@@ -189,6 +189,8 @@
                 d.push(data[key]);
             }
             ChartData.data.datasets[0].data = d;
+
+            console.log(ChartData.data.datasets[0].data);
             var myLineChart = new Chart(ctx).Line(ChartData.data, ChartData.options);
 
         }
