@@ -1,3 +1,4 @@
+'use strict';
 var fs = require('fs');
 var time_stam = require('./time_stamp_regex');
 var _ = require('lodash');
@@ -13,7 +14,7 @@ function search_prototype_double_highlight(param, filename, callback) {
 
     var highlighted_text = param[0];
     var highlighted_text_2 = param[1];
-    var h_1 = highlighted_text;
+    //var h_1 = highlighted_text;
     var h_2 = highlighted_text_2;
     time_stam.find_index_of_time(filename, function (time_stam) {
 
@@ -31,35 +32,33 @@ function search_prototype_double_highlight(param, filename, callback) {
                 for(var i = 0;i< result[highlighted_text].length;i++){
                     h1[result[highlighted_text][i]] = "first";
                 }
-                for(var i = 0;i< result[highlighted_text_2].length;i++){
-                    h2[result[highlighted_text_2][i]] = "second";
+                for(var j = 0;j< result[highlighted_text_2].length;j++){
+                    h2[result[highlighted_text_2][j]] = "second";
                 }
 
                 var h3 = _.merge(h1,h2);
                 var arr = Object.keys(h3);
 
-                for(var i = 0;i<arr.length-1;i++){
+                for(var l = 0;l<arr.length-1;l++){
 
-                    if(h3[arr[i]] == "first"){
-                        attrib[arr[i+1]] =  result[highlighted_text_2].indexOf(parseInt(arr[i+1]));
+                    if(h3[arr[l]] === "first"){
+                        attrib[arr[l+1]] =  result[highlighted_text_2].indexOf(parseInt(arr[l+1]));
                     }
                 }
-                for (var key in attrib) {
 
-                    final_num.push(num[attrib[key]]);
-                }
+                Object.keys(attrib).forEach(function (key) {
+                   final_num.push(num[attrib[key]]);
+                });
 
                 var k = 0;
-
-                for (var key in time_stam) {
-
-                    if (k % 2 == 0) {
+                Object.keys(time_stam).forEach(function (key) {
+                    if (k % 2 === 0) {
 
                         final_data[key] = final_num[k / 2];
                     }
                     k++;
+                });
 
-                }
                 console.log(final_data);
                 callback(final_data);
                 var time_taken = new Date().getTime() - start;
@@ -78,12 +77,12 @@ function findOccurence(data, keyword, h,result,num) {
 
     for (var i = 0; i < keyword.length; i++) {
 
-        if (keyword[i] == ' ')
-            new_regex.push('\s');
+        if (keyword[i] === ' '){
+            new_regex.push('\s');}
 
-        else if (keyword[i] == '.' || keyword[i] == '[' || keyword[i] == ']' ||
-            keyword[i] == ':' || keyword[i] == '/' || keyword[i] == '(' ||
-            keyword[i] == ')') {
+        else if (keyword[i] === '.' || keyword[i] === '[' || keyword[i] === ']' ||
+            keyword[i] === ':' || keyword[i] === '/' || keyword[i] === '(' ||
+            keyword[i] === ')') {
 
             new_regex.push('\\');
             new_regex.push(keyword[i]);
@@ -112,11 +111,12 @@ function findIndex(pattern, value, keyword, h,num, cb) {
     process.nextTick(function () {
         var indices = [];
         //console.log(pattern.exec(value));
-        while ((match = pattern.exec(value)) != null) {
+        var match;
+        while ((match = pattern.exec(value)) !== null) {
             //console.log("match found at " + match.index);
             var matchAt = match.index;
 
-            if (keyword == h) {
+            if (keyword === h) {
 
                 var temp_num = [];
                 for (var i = matchAt; i < value.length - 1; i++) {
