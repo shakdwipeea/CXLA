@@ -1,57 +1,55 @@
 'use strict';
 var fs = require('fs');
-var time_stam = require('./time_stamp_regex');
+var time_stamp = require('./time_stamp_regex');
 var _ = require('lodash');
 
-function search_prototype_double_highlight(param, filename, callback) {
-    var result = {};
-    var attrib = {};
-    var num = [];
-    var h1 = {};
-    var h2 = {};
-    var final_num = [];
-    var final_data = {};
-
-    var highlighted_text = param[0];
-    var highlighted_text_2 = param[1];
-    //var h_1 = highlighted_text;
-    var h_2 = highlighted_text_2;
-    time_stam.find_index_of_time(filename, function (time_stam) {
+function search__double_highlight(param, filename, callback) {
+    var indicies_of_highlighted_text = {},
+        value_at_indicies = {},
+        num = [],
+        highlighted_1 = {},
+        highlighted_2 = {},
+        final_num = [],
+        final_data = {},
+        highlighted_text = param[0],
+        highlighted_text_2 = param[1],
+        next_highlighted_text = highlighted_text_2;
+    time_stamp.find_index_of_time(filename, function (time_stamp) {
 
         var stream = fs.createReadStream(filename);
-        var start = new Date().getTime();
+        //var start = new Date().getTime();
 
         stream
             .on('data', function (data) {
-                findOccurence(data, highlighted_text, h_2,result,num);
-                findOccurence(data, highlighted_text_2, h_2,result,num);
+                findOccurence(data, highlighted_text, next_highlighted_text, indicies_of_highlighted_text, num);
+                findOccurence(data, highlighted_text_2, next_highlighted_text, indicies_of_highlighted_text, num);
             })
 
             .addListener('close', function () {
 
-                for(var i = 0;i< result[highlighted_text].length;i++){
-                    h1[result[highlighted_text][i]] = "first";
+                for (var i = 0; i < indicies_of_highlighted_text[highlighted_text].length; i++) {
+                    highlighted_1[indicies_of_highlighted_text[highlighted_text][i]] = "first";
                 }
-                for(var j = 0;j< result[highlighted_text_2].length;j++){
-                    h2[result[highlighted_text_2][j]] = "second";
+                for (var j = 0; j < indicies_of_highlighted_text[highlighted_text_2].length; j++) {
+                    highlighted_2[indicies_of_highlighted_text[highlighted_text_2][j]] = "second";
                 }
 
-                var h3 = _.merge(h1,h2);
-                var arr = Object.keys(h3);
+                var merged_objects = _.merge(highlighted_1, highlighted_2);
+                var keys_of_mergedObjects = Object.keys(merged_objects);
 
-                for(var l = 0;l<arr.length-1;l++){
+                for (var l = 0; l < keys_of_mergedObjects.length - 1; l++) {
 
-                    if(h3[arr[l]] === "first"){
-                        attrib[arr[l+1]] =  result[highlighted_text_2].indexOf(parseInt(arr[l+1]));
+                    if (merged_objects[keys_of_mergedObjects[l]] === "first") {
+                        value_at_indicies[keys_of_mergedObjects[l + 1]] = indicies_of_highlighted_text[highlighted_text_2].indexOf(parseInt(keys_of_mergedObjects[l + 1]));
                     }
                 }
 
-                Object.keys(attrib).forEach(function (key) {
-                   final_num.push(num[attrib[key]]);
+                Object.keys(value_at_indicies).forEach(function (key) {
+                    final_num.push(num[value_at_indicies[key]]);
                 });
 
                 var k = 0;
-                Object.keys(time_stam).forEach(function (key) {
+                Object.keys(time_stamp).forEach(function (key) {
                     if (k % 2 === 0) {
 
                         final_data[key] = final_num[k / 2];
@@ -71,67 +69,67 @@ function search_prototype_double_highlight(param, filename, callback) {
 }
 
 //function for generating regex
-function findOccurence(data, keyword, h,result,num) {
-    var value = data.toString('utf-8');
+function findOccurence(data, highlighted_text, next_highlighted_text,indicies_of_highlighted_text,num) {
+    var chunk_of_data = data.toString('utf-8');
     var new_regex = [];
 
-    for (var i = 0; i < keyword.length; i++) {
+    for (var i = 0; i < highlighted_text.length; i++) {
 
-        if (keyword[i] === ' '){
-            new_regex.push('\s');}
+        if (highlighted_text[i] === ' ') {
+            new_regex.push('\s');
+        }
 
-        else if (keyword[i] === '.' || keyword[i] === '[' || keyword[i] === ']' ||
-            keyword[i] === ':' || keyword[i] === '/' || keyword[i] === '(' ||
-            keyword[i] === ')') {
+        else if (highlighted_text[i] === '.' || highlighted_text[i] === '[' || highlighted_text[i] === ']' ||
+            highlighted_text[i] === ':' || highlighted_text[i] === '/' || highlighted_text[i] === '(' ||
+            highlighted_text[i] === ')') {
 
             new_regex.push('\\');
-            new_regex.push(keyword[i]);
+            new_regex.push(highlighted_text[i]);
         }
 
         else {
 
-            new_regex.push(keyword[i]);
+            new_regex.push(highlighted_text[i]);
 
         }
     }
 
     //console.log(new_regex.join(""));
 
-    var str = new_regex.join("");
-    var hre = new RegExp(str, 'g');
+    var new_string = new_regex.join("");
+    var regex = new RegExp(new_string, 'g');
 
-    findIndex(hre, value, keyword, h,num, function (keyword, indices) {
-        result[keyword] = indices;
+    findIndex(regex, chunk_of_data, highlighted_text, next_highlighted_text, num, function (keyword, indices) {
+        indicies_of_highlighted_text[keyword] = indices;
     });
 
 }
 
 //function for searching using inverted index key map
-function findIndex(pattern, value, keyword, h,num, cb) {
+function findIndex(regex, chunk_of_data, highlighted_text, next_highlighted_text, num, cb) {
     process.nextTick(function () {
         var indices = [];
-        //console.log(pattern.exec(value));
         var match;
-        while ((match = pattern.exec(value)) !== null) {
+        while ((match = regex.exec(chunk_of_data)) !== null) {
             //console.log("match found at " + match.index);
             var matchAt = match.index;
 
-            if (keyword === h) {
+            if (highlighted_text === next_highlighted_text) {
 
                 var temp_num = [];
-                for (var i = matchAt; i < value.length - 1; i++) {
+                for (var i = matchAt; i < chunk_of_data.length - 1; i++) {
 
-                    if (!isNaN(value[i]) && !isNaN(value[i + 1])) {
+                    if (!isNaN(chunk_of_data[i]) && !isNaN(chunk_of_data[i + 1])) {
 
-                        temp_num.push(value[i]);
-                        temp_num.push(value[++i]);
+                        temp_num.push(chunk_of_data[i]);
+                        temp_num.push(chunk_of_data[++i]);
                     }
 
-                    else if (!isNaN(value[i])) {
-                        temp_num.push(value[i]);
+                    else if (!isNaN(chunk_of_data[i])) {
+                        temp_num.push(chunk_of_data[i]);
                     }
 
-                    else if (temp_num.length > 0 && isNaN(value[i])) {
+                    else if (temp_num.length > 0 && isNaN(chunk_of_data[i])) {
 
                         num.push(temp_num.join(""));
                         temp_num = [];
@@ -142,10 +140,10 @@ function findIndex(pattern, value, keyword, h,num, cb) {
             }
             indices.push(match.index);
         }
-        cb(keyword, indices);
+        cb(highlighted_text, indices);
     });
 }
 
 module.exports = {
-    logAnalyser: search_prototype_double_highlight
+    logAnalyser: search__double_highlight
 };
