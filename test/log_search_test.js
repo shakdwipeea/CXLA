@@ -9,10 +9,10 @@ describe('logSearchDoubleHighlight', function () {
                 var time_stamp = [];
                 var value_corres = [];
                 log_search.logAnalyser(["S(100.100.12.10:80", "Rs"], "/Users/raghavrastogi/Documents/new_cxla/CXLA/utils/testFile2.txt", function (res) {
-                    for (key in res) {
+                    Object.keys(res).forEach(function (key) {
                         time_stamp.push(key);
                         value_corres.push(res[key]);
-                    }
+                    });
                     assert.equal(time_stamp[0], "Fri Aug 28 08:45:08 2015");
                     assert.equal(time_stamp[1], "Fri Aug 28 08:45:15 2015");
                     assert.equal(value_corres[0], "50");
@@ -32,10 +32,10 @@ describe('logSearchDoubleHighlight', function () {
                 var time_stamp = [];
                 var value_corres = [];
                 log_search.logAnalyser(["S(100.100.12.10:80", "Mbps"], "/Users/raghavrastogi/Documents/new_cxla/CXLA/utils/testFile2.txt", function (res) {
-                    for (key in res) {
+                    Object.keys(res).forEach(function (key) {
                         time_stamp.push(key);
                         value_corres.push(res[key]);
-                    }
+                    });
                     assert.equal(time_stamp[0], "Fri Aug 28 08:45:08 2015");
                     assert.equal(time_stamp[1], "Fri Aug 28 08:45:15 2015");
                     assert.equal(value_corres[0], "90");
