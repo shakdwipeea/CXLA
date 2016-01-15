@@ -28,26 +28,38 @@ router.post('/upload', function (req, res, next) {
 
 });
 
-/*function getResults(result,f,cb){
 
-    dataService.logAnalyser(result, __dirname + "/../public/data/" + f, function (arr) {
-        console.log(arr);
-        cb(err,arr);
-    });
-
-}*/
-
-
-/*router.post('/', function (req, res, next) {
+router.post('/', function (req, res, next) {
 
     var d = req.body.data;
     var f = req.body.file_name;
-
+    console.log(d,f);
+    var data = [];
+    console.log(_.chunk(d,2));
     var arr = _.chunk(d,2);
-    for(var j= 0;j<arr.length;j++){
+    var k = 0, m=arr.length-1;
+   for(var j=0;j< arr.length;j++){
+
+       dataService.logAnalyser(arr[j], __dirname + "/../public/data/" + f, function (arr) {
+           console.log(arr);
+          // data[arr[j][0]]=arr;
+           data.push(arr);
+           console.log("ddd");
+           k++;
+
+
+           if (k == m) {
+               console.log("okay");
+               res.json({
+                   data: data
+               });
+           }
+
+       });
 
     }
 
-});*/
+
+});
 
 module.exports = router;
