@@ -3,6 +3,7 @@ var fs = require('fs');
 var time_stamp = require('./time_stamp_regex');
 var _ = require('lodash');
 
+
 function search__double_highlight(param, filename, callback) {
     var indicies_of_highlighted_text = {},
         value_at_indicies = {},

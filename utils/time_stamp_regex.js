@@ -1,16 +1,17 @@
+"use strict";
 var fs = require('fs');
 
 //generic regex for timestamp
 var find_index_of_metadata = function (fileName, cb) {
     var indices = {};
     var stream = fs.createReadStream(fileName);
-    var bound = [];
     stream.on('data', function (data) {
         var value = data.toString('utf-8');
         //var old_regex = /([A-Z]{1}[a-z]{2})\s([A-Z]{1}[a-z]{2})\s([0-9]{1,2})\s(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)\s([0-9]{4})/g;
         var regex = /([A-Z]{1}[a-z]{2})?\s?([A-Z]{1}[a-z]{2})?\s([0-9]{1,2})\s(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)\s?([0-9]{4})?/g;
 
         var i = 1;
+        var match;
         while ((match = regex.exec(value)) !== null) {
 
             if(!(match[0].trim() in indices))
