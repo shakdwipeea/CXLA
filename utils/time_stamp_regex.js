@@ -14,7 +14,7 @@ var find_index_of_metadata = function (fileName, cb) {
         while ((match = regex.exec(value)) !== null) {
 
             if(!(match[0].trim() in indices))
-                indices[match[0].trim()] = match.index;
+                indices[match[0].trim()+"_"+i.toString()] = match.index;
             i++;
         }
     });

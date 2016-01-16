@@ -17,7 +17,7 @@ function search__double_highlight(param, filename, callback) {
     time_stamp.find_index_of_time(filename, function (time_stamp) {
 
         var stream = fs.createReadStream(filename);
-        //var start = new Date().getTime();
+        var start = new Date().getTime();
 
         stream
             .on('data', function (data) {

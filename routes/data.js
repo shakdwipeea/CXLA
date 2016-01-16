@@ -35,28 +35,29 @@ router.post('/', function (req, res, next) {
     var f = req.body.file_name;
     console.log(d,f);
     var data = [];
-    console.log(_.chunk(d,2));
+    console.log("Chink is ",_.chunk(d,2));
     var arr = _.chunk(d,2);
-    var k = 0, m=arr.length-1;
+    var k = 0, m=arr.length;
+    console.log("m is ", m);
    for(var j=0;j< arr.length;j++){
 
        dataService.logAnalyser(arr[j], __dirname + "/../public/data/" + f, function (arr) {
-           console.log(arr);
+           console.log("res",arr);
           // data[arr[j][0]]=arr;
            data.push(arr);
            console.log("ddd");
            k++;
-
-
-           if (k == m) {
+           console.log("K is", k);
+           complete();
+       });
+    }
+    function complete () {
+         if (k == m) {
                console.log("okay");
                res.json({
                    data: data
                });
            }
-
-       });
-
     }
 
 
