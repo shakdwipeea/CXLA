@@ -1,27 +1,50 @@
 
-<div id="fileReader">
-    <div>
-        <label for="fileInput"> Upload a File </label>
-        <input type="file" id="fileInput">
+<html>
+<head>
+    <title>The Log Analyser</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <style>
+        .space {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="jumbotron">
+        <h1>Log Analyser</h1>
+    </div>
+    <div class="" id="fileReader">
+        <div class="row panel" id="keywords">
+
+        </div>
+
+        <div class="row">
+        <div class="col-lg-4">
+            <input class="btn btn-default" class="input-control" type="file" id="fileInput">
+        </div>
+
+        <div class="col-lg-4">
+            <button class="btn btn-default" type="submit" name="button" id="next">Next</button>
+        </div>
+
+        <div class="col-lg-4" id="done">
+            <button class="btn btn-primary" type="submit" name="button" id="done">Done Highlighting</button>
+        </div></div>
+
+    <div class="panel" id="fileDisplayArea">
     </div>
 
-    <div id="fileDisplayArea">
-    </div>
-    <div>
-        <button type="submit" name="button" id="next">Next</button>
-    </div>
-
-    <div id="done">
-        <button type="submit" name="button" id="done">Done Highlighting</button>
-    </div>
+</div>
 </div>
 
 <div id="chart">
     <canvas id="myChart" width="1000" height="400"></canvas>
-    <div class="time_axis">------------->   Time (secs)</div>
+    <div class="time_axis"> ------------->   Time (secs)</div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/superagent/1.2.0/superagent.js"></script>
+<script src="superagent.js"></script>
 <script src="bower_components/Chart.js/Chart.js"></script>
 <script src="bower_components/axios/dist/axios.js"></script>
 <script>
@@ -73,13 +96,13 @@
 
         done.addEventListener('click', function (e) {
 
-            if (keywords.length == 2) {
+            if (keywords.length % 2 == 0) {
+
                 superagent
                         .post('/data')
                         .send({
                             file_name: fileInput.files[0].name,
-                            highlighted_text: keywords[0],
-                            highlighted_text_2: keywords[1]
+                            data: keywords
                         })
                         .end(function (err, res) {
                             console.log(err, res);
@@ -87,7 +110,7 @@
                             renderChart(res.body.data);
                         });
             } else {
-                console.log('Fuck you');
+                console.log('you');
             }
 
 
@@ -96,6 +119,7 @@
         next.addEventListener('click', function (e) {
             var text = window.getSelection().toString();
             keywords.push(text);
+            populateKeywordHTML();
         });
 
 
@@ -110,9 +134,26 @@
             var arr = [];
             var d = [];
 
+            var dataSetChartData = [];
+            dataSetChartData = array.map(function (arr) {
+                var t = {
+                    label: "My First dataset",
+                    fillColor: "rgba(220,220,220,0.2)",
+                    strokeColor: "rgba(0,0,0,1)",
+                    pointColor: "rgba(220,220,220,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    data: arr
+                };
+                return t;
+            });
+
             var ChartData = {
                 data: {
                     labels: arr,
+                    datasets: dataSetChartData
+                    /*,
                     datasets: [
                         {
                             label: "My First dataset",
@@ -125,7 +166,7 @@
                             data: d
                         }
 //
-                    ]
+                    ]*/
                 },
                 options: {
 
@@ -178,7 +219,7 @@
             };
 
 
-            var data = dataFromHBS;
+            /*var data = dataFromHBS;
             console.log(data);
             //plots.time1 = data;
             for (var key in data) {
@@ -187,11 +228,39 @@
 
             for (var key in data) {
                 d.push(data[key]);
+            }*/
+
+            for (var i = 0; i < arr.length; i++) {
+                ChartData.data.datasets[i].data = arr[i];
             }
-            ChartData.data.datasets[0].data = d;
+
+            //ChartData.data.datasets[0].data = d;
             var myLineChart = new Chart(ctx).Line(ChartData.data, ChartData.options);
 
         }
 
+        function populateKeywordHTML () {
+            var keywordsArea = document.getElementById("keywords");
+            var i = 0;
+            keywordsArea.innerHTML = "";
+            keywords.map(function (key) {
+                i++;
+                var div = document.createElement("div");
+                div.classList.add("label");
+                div.classList.add("label-default");
+                div.classList.add("space");
+                div.innerHTML = key;
+
+                if (i % 2 == 0) {
+                    var br = document.createElement("br");
+                    div.appendChild(br);
+                }
+
+                keywordsArea.appendChild(div);
+            })
+        }
+
     }
 </script>
+</body>
+</html>

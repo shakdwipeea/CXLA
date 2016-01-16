@@ -1,38 +1,28 @@
 var express = require('express'),
     router = express.Router(),
-    fs = require('fs')
+    fs = require('fs');
     dataService = require('../utils/log_search');
+    _ = require('lodash');
+    async = require('async');
 
 
-/*
-router.get('/', function (req, res) {
-    //console.log(__dirname);
-    dataService.logAnalyser(__dirname + "/../utils/testFile.txt", function (arr) {
-        res.json({
-            "data": arr
-        });
-    });
-});
-*/
 
 
-router.post('/upload', function (req,res,next) {
+router.post('/upload', function (req, res, next) {
 
-    console.log(req.body, req.file);
-   var old_path = __dirname+"/../public/data/" + req.file.filename;
+    //console.log(req.body, req.file);
+    var old_path = __dirname + "/../public/data/" + req.file.filename;
     console.log(old_path);
-    var new_path = __dirname+"/../public/data/"+ req.file.originalname;
+    var new_path = __dirname + "/../public/data/" + req.file.originalname;
     console.log(new_path);
 
     fs.rename(old_path, new_path, function (err) {
-        console.log("HI",err);
         if (err) {
             console.log(err);
             res.json({err: err});
         }
-        else{
-            console.log("HIfehf");
-            res.json({msg:"uploaded"});
+        else {
+            res.json({msg: "uploaded"});
         }
     });
 
@@ -41,11 +31,36 @@ router.post('/upload', function (req,res,next) {
 
 router.post('/', function (req, res, next) {
 
-    dataService.logAnalyser(req.body,__dirname+"/../public/data/"+req.body.file_name, function (arr) {
-        res.json({
-            "data": arr
-        });
-    });
+    var d = req.body.data;
+    var f = req.body.file_name;
+    console.log(d,f);
+    var data = [];
+    console.log("Chink is ",_.chunk(d,2));
+    var arr = _.chunk(d,2);
+    var k = 0, m=arr.length;
+    console.log("m is ", m);
+   for(var j=0;j< arr.length;j++){
+
+       dataService.logAnalyser(arr[j], __dirname + "/../public/data/" + f, function (arr) {
+           console.log("res",arr);
+          // data[arr[j][0]]=arr;
+           data.push(arr);
+           console.log("ddd");
+           k++;
+           console.log("K is", k);
+           complete();
+       });
+    }
+    function complete () {
+         if (k == m) {
+               console.log("okay");
+               res.json({
+                   data: data
+               });
+           }
+    }
+
+
 });
 
 module.exports = router;
