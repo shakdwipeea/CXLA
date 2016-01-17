@@ -24,6 +24,13 @@
         self.view.bind(Events.TEXT_SELECTED, function (selectedText) {
             self.selectText(selectedText);
         });
+
+        /**
+         * event handler when all data is selected
+         */
+        self.view.bind(Events.ALL_SELECTED, function () {
+            self.requestChart();
+        });
     }
 
     /**
@@ -58,6 +65,19 @@
      */
     Controller.prototype.setView = function () {
 
+    };
+
+    Controller.prototype.requestChart = function () {
+        var self = this;
+        self.model.postSelectedText(function (err, res) {
+           if (err) {
+               // display error
+               self.view.displayError(err);
+           } else {
+               // display chart
+               self.view.displayChart(data);
+           }
+        });
     };
 
     window.app = window.app || {};

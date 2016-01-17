@@ -4,6 +4,7 @@
 (function (window) {
     function Model() {
         this.keywords = [];
+        this.fileName = "";
     }
 
     /**
@@ -20,6 +21,8 @@
         var reader = new FileReader();
         reader.onload = callback;
         reader.readAsText(file);
+
+        this.fileName = file.name;
 
         superagent
             .post('/data/upload')
@@ -45,6 +48,35 @@
         this.keywords.push(selectedText);
         console.log("Keywords updated", this.keywords);
         callback(this.keywords);
+    };
+
+    /**
+     * Called after log data result is received
+     * @callback postSelectedTextCallback
+     * @param err Error occurred, if any
+     * @param res Response received from serevr
+     */
+
+    /**
+     * Post selected Text data to the server
+     * @param {postSelectedTextCallback} callback
+     */
+    Model.prototype.postSelectedText = function (callback) {
+        if (this.keywords.length % 2 == 0) {
+            superagent
+                .post('/data')
+                .send({
+                    file_name: this.fileName,
+                    data: this.keywords
+                })
+                .end(function (err, res) {
+                    console.log(err, res);
+                    callback(err, res);
+                });
+        } else {
+            callback("Could not complete request", null);
+        }
+
     };
 
 

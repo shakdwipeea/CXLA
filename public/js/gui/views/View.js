@@ -9,7 +9,6 @@
         this.$fileInput = document.getElementById('fileInput');
         this.$fileDisplayArea = document.getElementById('fileDisplayArea');
         this.$done = document.getElementById('done');
-        this.$fileReader = document.getElementById('fileReader');
         this.$next = document.getElementById('next');
         this.$keywords = document.getElementById('keywords');
     }
@@ -37,6 +36,12 @@
                 handler(text);
             });
         }
+
+        else if (event === self.Events.ALL_SELECTED) {
+            self.$done.addEventListener('click', function () {
+               handler();
+            });
+        }
     };
 
     /**
@@ -55,6 +60,14 @@
     View.prototype.displayKeywords = function (keywords) {
        var keywordsSelectedHTML = this.template.show(keywords);
         this.$keywords.innerHTML = keywordsSelectedHTML;
+    };
+
+    View.prototype.displayError = function (err) {
+      //todo
+    };
+
+    View.prototype.displayChart = function (data) {
+        //todo
     };
 
     window.app = window.app || {};
