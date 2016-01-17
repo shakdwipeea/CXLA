@@ -1,0 +1,66 @@
+
+<html>
+<head>
+    <title>The Log Analyser</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <style>
+        .space {
+            margin: 10px;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+    <div class="jumbotron">
+        <h1>Log Analyser</h1>
+    </div>
+    <div class="" id="fileReader">
+        <div class="row panel" id="keywords">
+
+        </div>
+
+        <div class="row">
+        <div class="col-lg-4">
+            <input class="btn btn-default" class="input-control" type="file" id="fileInput">
+        </div>
+
+        <div class="col-lg-4">
+            <button class="btn btn-default" type="submit" name="button" id="next">Next</button>
+        </div>
+
+        <div class="col-lg-4" id="done">
+            <button class="btn btn-primary" type="submit" name="button" id="done">Done Highlighting</button>
+        </div></div>
+
+    <div class="panel" id="fileDisplayArea">
+    </div>
+
+</div>
+</div>
+
+<div id="chart">
+    <canvas id="myChart" width="1000" height="400"></canvas>
+    <div class="time_axis"> ------------->   Time (secs)</div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<!--<script src="js/gui/templates/keywordDisplay.html"></script>-->
+<script src="superagent.js"></script>
+<script src="bower_components/handlebars/handlebars.js"></script>
+
+
+<!--<script src="bower_components/Chart.js/Chart.js"></script>-->
+<script src="bower_components/axios/dist/axios.js"></script>
+<script src="js/gui/constants.js"></script>
+<script src="js/gui/controller/Controller.js"></script>
+<script src="js/gui/models/Model.js"></script>
+<script src="js/gui/store/Store.js"></script>
+<script src="js/gui/views/KeywordDisplay.js"></script>
+<script src="js/gui/views/View.js"></script>
+<script src="js/gui/app.js"></script>
+</body>
+</html>
+
+
