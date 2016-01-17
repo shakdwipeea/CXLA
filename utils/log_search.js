@@ -5,7 +5,7 @@ var _ = require('lodash');
 
 
 function search__double_highlight(param, filename, callback) {
-    var indicies_of_highlighted _text = {},
+    var indicies_of_highlighted_text = {},
         value_at_indicies = {},
         num = [],
         highlighted_1 = {},
