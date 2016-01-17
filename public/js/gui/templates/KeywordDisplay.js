@@ -7,6 +7,9 @@
         this.defaultTemplate = null;
     }
 
+    /**
+     * Get the template from server and compile it
+     */
     Dashboard.prototype.initialize = function () {
         var self = this;
         superagent
@@ -39,6 +42,10 @@
         return template(context);
     };
 
+    /**
+     * export the module
+     * @type {{}}
+     */
     window.app = window.app || {};
     window.app.Dashboard = Dashboard;
 })(window);

@@ -2,15 +2,32 @@
  * Created by akash on 17/1/16.
  */
 (function (window) {
-    function View(template, Events) {
+    function View(template, Events, Templates) {
+        /**
+         * initializations
+         */
         this.template = template;
-        this.Events = Events;
+        this.chartTemplate = null;
 
+        this.Events = Events;
+        this.Templates = Templates;
+        console.log("The Templates object", Templates);
+
+        /**
+         * File Selection Elements
+         * @type {Element} Dome Elements
+         */
         this.$fileInput = document.getElementById('fileInput');
         this.$fileDisplayArea = document.getElementById('fileDisplayArea');
         this.$done = document.getElementById('done');
         this.$next = document.getElementById('next');
         this.$keywords = document.getElementById('keywords');
+
+        /**
+         * Chart elements
+         * @type {Element}
+         */
+        this.$chart = document.getElementById('chart');
     }
 
     /**
@@ -62,14 +79,42 @@
         this.$keywords.innerHTML = keywordsSelectedHTML;
     };
 
+    /**
+     * Function to display error if encountered
+     * @param err The error that occured
+     */
     View.prototype.displayError = function (err) {
       //todo
     };
 
+    /**
+     * It adds the chart DOM as obtained in the DOM of document
+     * @param data The Chart obtained as String
+     */
     View.prototype.displayChart = function (data) {
-        //todo
+        var chart = this.chartTemplate.show(data);
+        console.log(chart);
+        this.$chart.innerHTML = chart;
     };
 
+    /**
+     * Initialize and set up the chart template for use.
+     * This includes fecthing the module and registering it with the view
+     */
+    View.prototype.initializeChartTemplate = function () {
+        // this add chartTemplate in the current view
+        // which should be referred by this.chartTemplate
+        this.chartTemplate = this.Templates.CHART.template;
+
+        //initialize the template
+        this.chartTemplate.initialize();
+    };
+
+
+    /**
+     * export the module
+     * @type {{}}
+     */
     window.app = window.app || {};
     window.app.View = View;
 })(window);

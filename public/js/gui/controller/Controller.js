@@ -61,25 +61,37 @@
     };
 
     /**
-     * For routing etx
+     * idk what is this
+     * @param newView
      */
-    Controller.prototype.setView = function () {
+    Controller.prototype.setView = function (newView) {
 
     };
 
+    /**
+     * Request the model to get the result of the highlighted log
+     * data.
+     * Initialize the ChartTemplate to be ready to display the charts
+     */
     Controller.prototype.requestChart = function () {
         var self = this;
+        self.view.initializeChartTemplate();
         self.model.postSelectedText(function (err, res) {
+            console.log("Data obtained", err, res);
            if (err) {
                // display error
                self.view.displayError(err);
            } else {
                // display chart
-               self.view.displayChart(data);
+               self.view.displayChart(res);
            }
         });
     };
 
+    /**
+     * export the module
+     * @type {{}}
+     */
     window.app = window.app || {};
     window.app.Controller = Controller;
 })(window);
