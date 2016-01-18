@@ -79,6 +79,18 @@
 
     };
 
+    Model.prototype.searchLog = function (query, callback) {
+        superagent.post('/search')
+            .send({
+                file_name: this.fileName,
+                keywords: query
+            })
+            .end(function (err, res) {
+                console.log(err, res);
+                callback(err, res.body.data);
+            });
+    };
+
 
     /**
      * export the module
