@@ -31,6 +31,13 @@
         self.view.bind(Events.ALL_SELECTED, function () {
             self.requestChart();
         });
+
+        /**
+         * event handler for search
+         */
+        self.view.bind(Events.ENTER_PRESSED, function (query) {
+            self.searchLog(query);
+        });
     }
 
     /**
@@ -84,6 +91,20 @@
                // display chart
                self.view.displayChart(function () {
                     self.view.drawBasic(data);
+               });
+           }
+        });
+    };
+
+    Controller.prototype.searchLog = function (query) {
+        var self = this;
+        self.model.searchLog(query, function (err, data) {
+           if (err) {
+               self.view.displayError(err);
+           } else {
+               //display chart
+               self.view.displayChart(function () {
+                  self.view.drawListing(data);
                });
            }
         });

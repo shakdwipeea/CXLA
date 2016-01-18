@@ -6,7 +6,8 @@
 		var Events = {
 			FILE_CHANGED: "fileChanged",
 			TEXT_SELECTED: "textSelected",
-			ALL_SELECTED: "allSelected"
+			ALL_SELECTED: "allSelected",
+			ENTER_PRESSED: "enterPressed"
 		};
 
 		/**

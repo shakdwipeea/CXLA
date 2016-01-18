@@ -1,8 +1,11 @@
+/*global google, window */
 /**
  * Created by akash on 17/1/16.
  */
 (function (window) {
+
     function View(template, Events, Templates) {
+
         /**
          * initializations
          */
@@ -11,6 +14,8 @@
 
         this.Events = Events;
         this.Templates = Templates;
+
+        this.ENTER_KEY = 13;
 
         /**
          * File Selection Elements
@@ -27,6 +32,12 @@
          * @type {Element}
          */
         this.$chart = document.getElementById('chart_div');
+
+        /**
+         * Search bar elements
+         * @type {Element}
+         */
+        this.$searchBox = document.getElementById('searchQuery');
     }
 
     /**
@@ -56,6 +67,14 @@
         else if (event === self.Events.ALL_SELECTED) {
             self.$done.addEventListener('click', function () {
                handler();
+            });
+        }
+
+        else if (event === self.Events.ENTER_PRESSED) {
+            self.$searchBox.addEventListener('keydown', function (e) {
+                if (e.keyCode === self.ENTER_KEY) {
+                    handler(self.$searchBox.value);
+                }
             });
         }
     };
@@ -139,6 +158,10 @@
 
         var chart = new google.visualization.LineChart(this.$chart);
         chart.draw(dataTable, options);
+    };
+
+    View.prototype.drawListing = function (data) {
+
     };
 
 
