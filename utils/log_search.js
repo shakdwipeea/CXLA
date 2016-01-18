@@ -6,6 +6,8 @@ var _ = require('lodash');
 
 function search__double_highlight(param, filename, callback) {
     var indicies_of_highlighted_text = {},
+        time_stamp_value = {},
+        highlighted_index = {},
         value_at_indicies = {},
         num = [],
         highlighted_1 = {},
@@ -18,8 +20,15 @@ function search__double_highlight(param, filename, callback) {
     time_stamp.find_index_of_time(filename, function (time_stamp) {
 
         var stream = fs.createReadStream(filename);
-        var start = new Date().getTime();
 
+        Object.prototype.getKeyByValue = function( value ) {
+            for( var prop in this ) {
+                if( this.hasOwnProperty( prop ) ) {
+                    if( this[ prop ] === value )
+                        return prop;
+                }
+            }
+        };
         stream
             .on('data', function (data) {
                 findOccurence(data, highlighted_text, next_highlighted_text, indicies_of_highlighted_text, num);
@@ -49,19 +58,25 @@ function search__double_highlight(param, filename, callback) {
                     final_num.push(num[value_at_indicies[key]]);
                 });
 
-                var k = 0;
-                Object.keys(time_stamp).forEach(function (key) {
-                    if (k % 2 === 0) {
-
-                        final_data[key] = final_num[k / 2];
-                    }
-                    k++;
+                Object.keys(value_at_indicies).forEach(function (key) {
+                   highlighted_index[parseInt(key)] = "highlighted";
                 });
+
+                Object.keys(time_stamp).forEach(function (key) {
+                   time_stamp_value[time_stamp[key]] = "time";
+                });
+
+                var merge_key_value = _.merge(time_stamp_value,highlighted_index);
+
+                var keys_of_merged = Object.keys(merge_key_value);
+                for (var t = 0; t < keys_of_merged.length - 1; t++) {
+                    if (merge_key_value[keys_of_merged[t]] === 'highlighted') {
+                        final_data[time_stamp.getKeyByValue(parseInt(keys_of_merged[t - 1]))] = num[value_at_indicies[keys_of_merged[t].toString()]];
+                    }
+                }
 
                 console.log(final_data);
                 callback(final_data);
-                var time_taken = new Date().getTime() - start;
-                console.log('Time ', time_taken);
 
 
             });
@@ -77,7 +92,7 @@ function findOccurence(data, highlighted_text, next_highlighted_text,indicies_of
     for (var i = 0; i < highlighted_text.length; i++) {
 
         if (highlighted_text[i] === ' ') {
-            new_regex.push('\s');
+            new_regex.push('\\s');
         }
 
         else if (highlighted_text[i] === '.' || highlighted_text[i] === '[' || highlighted_text[i] === ']' ||
@@ -95,7 +110,7 @@ function findOccurence(data, highlighted_text, next_highlighted_text,indicies_of
         }
     }
 
-    //console.log(new_regex.join(""));
+    console.log(new_regex.join(""));
 
     var new_string = new_regex.join("");
     var regex = new RegExp(new_string, 'g');

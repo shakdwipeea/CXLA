@@ -5,8 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var routes = require('./routes/index');
-var users = require('./routes/users');
-var fileLines = require('./routes/fileLines');
+//var users = require('./routes/users');
+//var fileLines = require('./routes/fileLines');
 
 var cors = require('cors');
 var multer = require('multer');
@@ -27,8 +27,8 @@ app.use(multer({dest: './public/data'}).single('file'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);
-app.use('/fileLines',fileLines);
+//app.use('/users', users);
+//app.use('/fileLines',fileLines);
 app.use('/data', require('./routes/data'));
 
 

@@ -11,7 +11,6 @@
 
         this.Events = Events;
         this.Templates = Templates;
-        console.log("The Templates object", Templates);
 
         /**
          * File Selection Elements
@@ -27,7 +26,7 @@
          * Chart elements
          * @type {Element}
          */
-        this.$chart = document.getElementById('chart');
+        this.$chart = document.getElementById('chart_div');
     }
 
     /**
@@ -91,10 +90,9 @@
      * It adds the chart DOM as obtained in the DOM of document
      * @param data The Chart obtained as String
      */
-    View.prototype.displayChart = function (data) {
-        var chart = this.chartTemplate.show(data);
-        console.log(chart);
-        this.$chart.innerHTML = chart;
+    View.prototype.displayChart = function (callback) {
+        google.charts.load('current', {packages: ['corechart', 'line']});
+        google.charts.setOnLoadCallback(callback);
     };
 
     /**
@@ -108,6 +106,39 @@
 
         //initialize the template
         this.chartTemplate.initialize();
+    };
+
+
+    View.prototype.drawBasic = function (data) {
+        var modifiedData = [];
+        Object.keys(data[0]).forEach(function (key) {
+            var tempArray = [];
+            tempArray.push(key);
+            for(var i=0;i<data.length;i++){
+                tempArray.push(parseInt(data[i][key]));
+            }
+            modifiedData.push(tempArray);
+        });
+
+        var dataTable = new google.visualization.DataTable();
+        dataTable.addColumn("string","time");
+        for(var i=0;i<data.length;i++){
+            dataTable.addColumn("number", i.toString());
+        }
+        dataTable.addRows(modifiedData);
+
+        var options = {
+            hAxis: {
+                title: 'Time'
+            },
+            vAxis: {
+                title: ''
+            },
+            pointSize:5
+        };
+
+        var chart = new google.visualization.LineChart(this.$chart);
+        chart.draw(dataTable, options);
     };
 
 

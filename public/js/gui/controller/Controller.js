@@ -76,14 +76,15 @@
     Controller.prototype.requestChart = function () {
         var self = this;
         self.view.initializeChartTemplate();
-        self.model.postSelectedText(function (err, res) {
-            console.log("Data obtained", err, res);
+        self.model.postSelectedText(function (err, data) {
            if (err) {
                // display error
                self.view.displayError(err);
            } else {
                // display chart
-               self.view.displayChart(res);
+               self.view.displayChart(function () {
+                    self.view.drawBasic(data);
+               });
            }
         });
     };

@@ -71,7 +71,7 @@
                 })
                 .end(function (err, res) {
                     console.log(err, res);
-                    callback(err, res);
+                    callback(err, res.body.data);
                 });
         } else {
             callback("Could not complete request", null);
