@@ -4,6 +4,7 @@ var fs = require('fs');
 //generic regex for timestamp
 var find_index_of_metadata = function (fileName, cb) {
     var indices = {};
+    var new_indices = {};
     var stream = fs.createReadStream(fileName);
     stream.on('data', function (data) {
         var value = data.toString('utf-8');
@@ -13,16 +14,22 @@ var find_index_of_metadata = function (fileName, cb) {
         var i = 1;
         var match;
         while ((match = regex.exec(value)) !== null) {
-
-            if(!(match[0].trim() in indices))
-                indices[match[0].trim()+"_"+i.toString()] = match.index;
+            //console.log(match[0].trim());
+            //console.log(Object.keys(indices));
+            if(Object.keys(indices).indexOf(match[0].trim()) == -1)
+                indices[match[0].trim()] = match.index;
             i++;
         }
+
     });
 
     stream.addListener('close', function () {
         //console.log(indices);
-        cb(indices);
+        Object.keys(indices).forEach(function (key) {
+           new_indices[key+'_'+ (Object.keys(indices).indexOf(key)+1).toString()] = indices[key];
+        });
+        //console.log(new_indices);
+        cb(new_indices);
     });
 
 };

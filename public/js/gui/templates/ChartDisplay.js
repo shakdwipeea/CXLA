@@ -29,8 +29,20 @@
      * @return It returns the html which can be added to DOM
      */
     Chart.prototype.show = function (data) {
-        return this.template(data);
+        var modifiedData = [];
+        Object.keys(data[0]).forEach(function (key) {
+            var tempArray = [];
+            tempArray.push(key);
+            for(var i=0;i<data.length;i++){
+                tempArray.push(parseInt(data[i][key]));
+            }
+            modifiedData.push(tempArray);
+        });
+        var context = {};
+        context["data"] = modifiedData;
+        return template(context);
     };
+
 
     /**
      * export the module

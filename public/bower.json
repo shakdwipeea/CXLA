@@ -20,6 +20,7 @@
     "bootstrap": "~3.3.6",
     "superagent": "~1.4.0",
     "axios": "~0.7.0",
-    "Chart.js": "~1.0.2"
+    "Chart.js": "~1.0.2",
+    "lodash": "~4.0.0"
   }
 }
