@@ -7,7 +7,8 @@
 			FILE_CHANGED: "fileChanged",
 			TEXT_SELECTED: "textSelected",
 			ALL_SELECTED: "allSelected",
-			ENTER_PRESSED: "enterPressed"
+			ENTER_PRESSED: "enterPressed",
+			RESET: "resetData"
 		};
 
 		/**

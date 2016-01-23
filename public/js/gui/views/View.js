@@ -26,6 +26,7 @@
         this.$done = document.getElementById('done');
         this.$next = document.getElementById('next');
         this.$keywords = document.getElementById('keywords');
+        this.$reset = document.getElementById('reset');
 
         /**
          * Chart elements
@@ -77,6 +78,12 @@
                 }
             });
         }
+
+        else if (event === self.Events.RESET) {
+            self.$reset.addEventListener('click', function () {
+               handler();
+            });
+        }
     };
 
     /**
@@ -106,10 +113,10 @@
     };
 
     /**
-     * It adds the chart DOM as obtained in the DOM of document
-     * @param data The Chart obtained as String
+     * Initializes the google charts library
+     * @param callback Callback to call when library is loaded
      */
-    View.prototype.displayChart = function (callback) {
+    View.prototype.initializeChartLibrary = function (callback) {
         google.charts.load('current', {packages: ['corechart', 'line']});
         google.charts.setOnLoadCallback(callback);
     };
@@ -130,11 +137,15 @@
 
     View.prototype.drawBasic = function (data) {
         var modifiedData = [];
+        //todo this in controller
         Object.keys(data[0]).forEach(function (key) {
             var tempArray = [];
             tempArray.push(key);
             for(var i=0;i<data.length;i++){
-                tempArray.push(parseInt(data[i][key]));
+                if(data[i][key].indexOf('.') != -1)
+                    tempArray.push(parseFloat(data[i][key]));
+                else
+                    tempArray.push(parseInt(data[i][key]));
             }
             modifiedData.push(tempArray);
         });
@@ -146,6 +157,7 @@
         }
         dataTable.addRows(modifiedData);
 
+        //todo abstract
         var options = {
             hAxis: {
                 title: 'Time'
@@ -161,7 +173,37 @@
     };
 
     View.prototype.drawListing = function (data) {
+        var modifiedData = [];
+        modifiedData.push(['time','count']);
+        Object.keys(data).forEach(function (key) {
+            var tempArray = [];
+            tempArray.push(key);
+            tempArray.push(data[key]);
+            modifiedData.push(tempArray);
+        });
+        console.log("modified",modifiedData);
+        var dataTable = new google.visualization.arrayToDataTable(modifiedData);
 
+        var options = {
+            title: 'Listings',
+            hAxis: {title: 'time', minValue: 0, maxValue: 2},
+            //vAxis: {title: 'count', minValue: 0, maxValue: 15},
+            width:1200,
+            legend: 'none'
+        };
+
+        var chart = new google.visualization.ScatterChart(this.$chart);
+        console.log("chart object",chart);
+        chart.draw(dataTable, options)
+    };
+
+    /**
+     * Reset the table of keywords
+     * and hide any charts if visible
+     */
+    View.prototype.resetView = function () {
+        this.$keywords.innerHTML = "";
+        this.$chart.innerHTML = "";
     };
 
 

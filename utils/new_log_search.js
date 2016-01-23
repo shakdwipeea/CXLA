@@ -59,17 +59,19 @@ function search__double_highlight(param, filename, callback) {
                 });
 
                 Object.keys(value_at_indicies).forEach(function (key) {
-                   highlighted_index[parseInt(key)] = "highlighted";
+                    highlighted_index[parseInt(key)] = "highlighted";
                 });
 
                 Object.keys(time_stamp).forEach(function (key) {
-                   time_stamp_value[time_stamp[key]] = "time";
+                    time_stamp_value[time_stamp[key]] = "time";
                 });
+                console.log(time_stamp);
 
                 var merge_key_value = _.merge(time_stamp_value,highlighted_index);
+                console.log(merge_key_value);
 
                 var keys_of_merged = Object.keys(merge_key_value);
-                for (var t = 0; t < keys_of_merged.length - 1; t++) {
+                for (var t = 0; t < keys_of_merged.length; t++) {
                     if (merge_key_value[keys_of_merged[t]] === 'highlighted') {
                         final_data[time_stamp.getKeyByValue(parseInt(keys_of_merged[t - 1]))] = num[value_at_indicies[keys_of_merged[t].toString()]];
                     }
@@ -88,27 +90,65 @@ function search__double_highlight(param, filename, callback) {
 function findOccurence(data, highlighted_text, next_highlighted_text,indicies_of_highlighted_text,num) {
     var chunk_of_data = data.toString('utf-8');
     var new_regex = [];
+    var digit_group = '[0-9]*';
+    var flag = 0;
+    console.log(highlighted_text);
+    console.log(next_highlighted_text);
 
-    for (var i = 0; i < highlighted_text.length; i++) {
+    if(highlighted_text === next_highlighted_text){
 
-        if (highlighted_text[i] === ' ') {
-            new_regex.push('\\s');
-        }
+        for(var j = 0;j < highlighted_text.length;j++){
 
-        else if (highlighted_text[i] === '.' || highlighted_text[i] === '[' || highlighted_text[i] === ']' ||
-            highlighted_text[i] === ':' || highlighted_text[i] === '/' || highlighted_text[i] === '(' ||
-            highlighted_text[i] === ')') {
+            if (highlighted_text[j] === ' ') {
+                flag = 1;
+                new_regex.push('\\s');
+            }
 
-            new_regex.push('\\');
-            new_regex.push(highlighted_text[i]);
-        }
+            else if (highlighted_text[j] === '.' || highlighted_text[j] === '[' || highlighted_text[j] === ']' ||
+                highlighted_text[j] === ':' || highlighted_text[j] === '/' || highlighted_text[j] === '(' ||
+                highlighted_text[j] === ')' || highlighted_text[j] === ',') {
 
-        else {
+                flag = 1;
+                new_regex.push('\\');
+                new_regex.push(highlighted_text[j]);
+            }
 
-            new_regex.push(highlighted_text[i]);
+            else if(!isNaN(highlighted_text[j])) {
 
+                if(flag === 1)
+                new_regex.push(digit_group);
+                flag = 0;
+            }
+
+            else{
+                new_regex.push(highlighted_text[j]);
+            }
         }
     }
+        else
+        {
+
+            for (var i = 0; i < highlighted_text.length; i++) {
+
+                if (highlighted_text[i] === ' ') {
+                    new_regex.push('\\s');
+                }
+
+                else if (highlighted_text[i] === '.' || highlighted_text[i] === '[' || highlighted_text[i] === ']' ||
+                    highlighted_text[i] === ':' || highlighted_text[i] === '/' || highlighted_text[i] === '(' ||
+                    highlighted_text[i] === ')') {
+
+                    new_regex.push('\\');
+                    new_regex.push(highlighted_text[i]);
+                }
+
+                else {
+
+                    new_regex.push(highlighted_text[i]);
+
+                }
+            }
+        }
 
     console.log(new_regex.join(""));
 
@@ -127,39 +167,12 @@ function findIndex(regex, chunk_of_data, highlighted_text, next_highlighted_text
         var indices = [];
         var match;
         while ((match = regex.exec(chunk_of_data)) !== null) {
-            //console.log("match found at " + match.index);
             var matchAt = match.index;
-
             if (highlighted_text === next_highlighted_text) {
-
-                var temp_num = [];
-                for (var i = matchAt; i < chunk_of_data.length - 1; i++) {
-                    if (!isNaN(chunk_of_data[i]) && !isNaN(chunk_of_data[i + 1])) {
-
-                        temp_num.push(chunk_of_data[i]);
-                        temp_num.push(chunk_of_data[++i]);
-                        //console.log("FIRST",temp_num);
-                    }
-
-                    else if (!isNaN(chunk_of_data[i])) {
-                        temp_num.push(chunk_of_data[i]);
-                        //console.log("SECOND",temp_num);
-                    }
-
-                    else if (temp_num.length > 0 && isNaN(chunk_of_data[i])) {
-
-                        num.push(temp_num.join(""));
-                        //console.log("THIRD",temp_num);
-                        temp_num = [];
-                        break;
-                    }
-
-                }
-                //console.log(num);
+                num.push((match[0].match(/[+-]?\d+(\.\d+)?/g)).slice(-1).pop());
             }
             indices.push(match.index);
         }
-        console.log(indices);
         cb(highlighted_text, indices);
     });
 }
