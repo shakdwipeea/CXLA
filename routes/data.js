@@ -52,12 +52,12 @@ router.post('/', function (req, res, next) {
    for(var j=0;j< arr.length;j++){
 
        dataService.logAnalyser(arr[j], __dirname + "/../public/data/" + f, function (arr) {
-           console.log("res",arr);
+           //console.log("res",arr);
           // data[arr[j][0]]=arr;
            data.push(arr);
-           console.log("ddd");
+           //console.log("ddd");
            k++;
-           console.log("K is", k);
+           //console.log("K is", k);
            complete();
        });
     }
