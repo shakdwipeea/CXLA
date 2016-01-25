@@ -40,3 +40,26 @@ npm install
 
 
 > For highlighting the value utmost care should be taken that there must be characters followed by the value you want.for example:
+
+Snapshot 1:
+![alt-text](https://github.com/shakdwipeea/CXLA/blob/modifiedhighlight/public/images/Screen%20Shot%202016-01-25%20at%209.43.14%20AM.png)
+
+> consider the highlighted line different key value pairs can be:
+
+1. key: S(100.100.12.10:80: value: Hits(10.89,
+2. key: S(100.100.12.10:80: value: Hits(10.89, 0
+3. key: S(100.100.12.10:80: value: P[40,
+4. key: S(100.100.12.10.80: value: P[40, 0
+5. key: S(100.100.12.10.80: value: Mbps(0.00)
+and so on
+
+
+Snapshot 2:
+![alt-text](https://github.com/shakdwipeea/CXLA/blob/modifiedhighlight/public/images/Screen%20Shot%202016-01-25%20at%209.50.14%20AM.png)
+
+> consider the highlighted line different key value pairs can be:
+
+1. key: EVENT MONITORDOWN value: MONITORDOWN 72409
+2. key: EVENT MONITORDOWN value: MONITORDOWN 72409 0
+3. key: GMT value: MONITORDOWN 72409 0
+4. key: GMT value:GMT NS_123 0-PPE-0  and so on

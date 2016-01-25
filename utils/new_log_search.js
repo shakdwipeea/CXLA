@@ -94,7 +94,7 @@ function search__double_highlight(param, filename, callback) {
 function findOccurence(data, highlighted_text, next_highlighted_text, indicies_of_highlighted_text, num,counter) {
     var chunk_of_data = data.toString('utf-8');
     var new_regex = [];
-    var digit_group = '[+-]?\\d+(\\.\\d+)?';
+    var digit_group = '\\d+(\\.\\d+)?';
     var flag = 0;
     //console.log(highlighted_text);
     //console.log(next_highlighted_text);
@@ -112,7 +112,7 @@ function findOccurence(data, highlighted_text, next_highlighted_text, indicies_o
 
             else if (highlighted_text[j] === '[' || highlighted_text[j] === ']' ||
                 highlighted_text[j] === ':' || highlighted_text[j] === '/' || highlighted_text[j] === '(' ||
-                highlighted_text[j] === ')' || highlighted_text[j] === ',') {
+                highlighted_text[j] === ')' || highlighted_text[j] === ',' || highlighted_text[j] === '-' || highlighted_text[j] === '_') {
 
                 flag = 1;
                 new_regex.push('\\');
@@ -181,7 +181,7 @@ function findIndex(regex, chunk_of_data, highlighted_text, next_highlighted_text
         while ((match = regex.exec(chunk_of_data)) !== null) {
             if (highlighted_text === next_highlighted_text) {
                 //console.log("NEXT", match[0], match.index);
-                num.push((match[0].match(/[+-]?\d+(\.\d+)?/g)).slice(-1).pop());
+                num.push((match[0].match(/\d+(\.\d+)?/g)).slice(-1).pop());
             }
             //console.log("findIndex match.index ", match.index, " counter is", counter);
             indices.push(match.index + counter);
