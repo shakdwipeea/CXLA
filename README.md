@@ -23,3 +23,20 @@ Citrix Generic Log Analyzer
 npm install
 ```
 4. Now visit ```localhost:3000/gui```
+
+
+------------
+
+###Working
+1. Upload the log file
+
+2. For using the search feature just enter the term you want to search and press enter.
+
+3. For using the highlight feature
+
+..* first highlight the key then press next.
+
+..* second time highlight the value corresponding to it and then press next.
+
+
+> For highlighting the value utmost care should be taken that there must be characters followed by the value you want.for example:
