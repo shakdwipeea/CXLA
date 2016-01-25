@@ -44,12 +44,12 @@ router.post('/', function (req, res, next) {
 
     var d = req.body.data;
     var f = req.body.file_name;
-    console.log(d,f);
+    //console.log(d,f);
     var data = [];
-    console.log("Chink is ",_.chunk(d,2));
+   // console.log("Chink is ",_.chunk(d,2));
     var arr = _.chunk(d,2);
     var k = 0, m=arr.length;
-    console.log("m is ", m);
+    //console.log("m is ", m);
    for(var j=0;j< arr.length;j++){
 
        dataService.logAnalyser(arr[j], __dirname + "/../public/data/" + f, function (arr) {
@@ -64,7 +64,7 @@ router.post('/', function (req, res, next) {
     }
     function complete () {
          if (k == m) {
-               console.log("okay");
+               //console.log("okay");
                res.json({
                    data: data
                });

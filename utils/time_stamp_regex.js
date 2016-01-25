@@ -30,7 +30,7 @@ var find_index_of_metadata = function (fileName, cb) {
         Object.keys(indices).forEach(function (key) {
            new_indices[key+'_'+ (Object.keys(indices).indexOf(key)+1).toString()] = indices[key];
         });
-        console.log(new_indices);
+        //console.log(new_indices);
         cb(new_indices);
     });
 
