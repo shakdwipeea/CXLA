@@ -18,9 +18,12 @@ function searchKeyword(keywords,filename,callback){
                 }
             }
         };
+        var counter = 0;
         stream
             .on('data', function (data) {
-                find_indicies(data,keywords,searched_keyword);
+                console.log("keywords",keywords);
+                find_indicies(data,keywords,searched_keyword,counter);
+                counter+=data.length;
             })
 
             .addListener('close', function () {
@@ -31,9 +34,12 @@ function searchKeyword(keywords,filename,callback){
                    time_stamp_value.push(time_stamp[key]);
                 });
 
+
                 for(var t=0;t<time_stamp_value.length;t++){
                     final_data[time_stamp.getKeyByValue(time_stamp_value[t])]=0;
                 }
+                console.log("Searched keyword",searched_keyword,searched_keyword[keywords].length);
+                console.log("Time stamp ",time_stamp_value);
                 for(var i=0;i<time_stamp_value.length-1;i++){
                     for(var j=0;j<searched_keyword[keywords].length;j++){
                         if(searched_keyword[keywords][j]>time_stamp_value[i] && searched_keyword[keywords][j]<time_stamp_value[i+1]){
@@ -41,13 +47,13 @@ function searchKeyword(keywords,filename,callback){
                         }
                     }
                 }
-                console.log(final_data);
+                //console.log(final_data);
                 callback(final_data);
             });
     });
 }
 
-function find_indicies(data,keywords,searched_keyword){
+function find_indicies(data,keywords,searched_keyword,counter){
     var chunk_of_data = data.toString('utf-8');
     var new_regex = [];
 
@@ -72,28 +78,34 @@ function find_indicies(data,keywords,searched_keyword){
         }
     }
 
-    console.log(new_regex.join(""));
+    //console.log(new_regex.join(""));
 
     var new_string = new_regex.join("");
     var regex = new RegExp(new_string, 'g');
+    //console.log("find searched keywords",searched_keyword);
+    var result = findIndex(regex, chunk_of_data,keywords,counter);
+    var keyw = result[0];
+    var indices = result[1];
 
-    findIndex(regex, chunk_of_data, keywords, function (keyword, indices) {
-        searched_keyword[keyword] = indices;
-    });
+    if(!searched_keyword[keyw] || !(searched_keyword[keyw].length >= 0)) {
+        //console.log("there", indicies_of_highlighted_text);
+        searched_keyword[keyw] = [];
+    }
+
+    searched_keyword[keyw] = searched_keyword[keyw].concat(indices);
+    //console.log("Indices ", indicies_of_highlighted_text);
 }
 
-function findIndex(regex,chunk_of_data,keywords,cb){
-
-    process.nextTick(function () {
+function findIndex(regex,chunk_of_data,keywords,counter){
         var indices = [];
         var match;
         while ((match = regex.exec(chunk_of_data)) !== null) {
             //console.log("match found at " + match.index);
             var matchAt = match.index;
-            indices.push(match.index);
+            indices.push(match.index+counter);
         }
-        cb(keywords, indices);
-    });
+
+        return [keywords, indices];
 
 }
 

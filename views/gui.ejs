@@ -27,17 +27,25 @@
         </div>
 
         <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-3">
             <input class="btn btn-default" class="input-control" type="file" id="fileInput">
         </div>
 
-        <div class="col-lg-4">
+        <div class="col-lg-3">
             <button class="btn btn-default" type="submit" name="button" id="next">Next</button>
         </div>
 
-        <div class="col-lg-4" id="done">
+        <div class="col-lg-3" id="done">
             <button class="btn btn-primary" type="submit" name="button" id="done">Done Highlighting</button>
-        </div></div>
+        </div>
+
+        <div class="col-lg-3" id="reset">
+            <button class="btn btn-primary" type="reset" name="button" id="reset">Reset</button>
+        </div>
+
+        </div>
+
+        <div id="chart_div"></div>
 
     <div class="panel" id="fileDisplayArea">
     </div>
@@ -45,7 +53,7 @@
 </div>
 </div>
 
-<div id="chart_div"></div>
+
 
 <script src="superagent.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

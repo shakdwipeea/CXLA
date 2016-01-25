@@ -79,8 +79,13 @@
 
     };
 
+    /**
+     * Call the api to search for log
+     * @param query Query to search
+     * @param callback Callback when search is done
+     */
     Model.prototype.searchLog = function (query, callback) {
-        superagent.post('/search')
+        superagent.post('/data/search')
             .send({
                 file_name: this.fileName,
                 keywords: query
@@ -89,6 +94,16 @@
                 console.log(err, res);
                 callback(err, res.body.data);
             });
+    };
+
+    /**
+     * Reset button update the view
+     * can also use sth like Dispatcher
+     * @param callback
+     */
+    Model.prototype.resetKeywords = function (callback) {
+        this.keywords = [];
+        callback();
     };
 
 

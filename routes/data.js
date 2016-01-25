@@ -1,11 +1,21 @@
 var express = require('express'),
     router = express.Router(),
     fs = require('fs');
-    dataService = require('../utils/log_search');
-    search = require('../utils/keyword_search');
+    dataService = require('../utils/new_log_search');
+    search_keyword = require('../utils/keyword_search');
+    listing = require('../utils/listing');
     _ = require('lodash');
     async = require('async');
 
+
+router.post('/search', function (req,res,next) {
+    var f = req.body.file_name;
+    console.log(req.body);
+    search_keyword.searchKeyword(req.body.keywords,__dirname + "/../public/data/" + f,function (search_keyword) {
+        console.log(search_keyword);
+        res.json({data:search_keyword});
+    });
+});
 
 
 
@@ -43,12 +53,12 @@ router.post('/', function (req, res, next) {
    for(var j=0;j< arr.length;j++){
 
        dataService.logAnalyser(arr[j], __dirname + "/../public/data/" + f, function (arr) {
-           console.log("res",arr);
+           //console.log("res",arr);
           // data[arr[j][0]]=arr;
            data.push(arr);
-           console.log("ddd");
+           //console.log("ddd");
            k++;
-           console.log("K is", k);
+           //console.log("K is", k);
            complete();
        });
     }
@@ -64,16 +74,14 @@ router.post('/', function (req, res, next) {
 
 });
 
-router.post('/search', function (req,res,next) {
+router.post('/listing', function (req,res,next) {
+
     var f = req.body.file_name;
-    search.searchKeyword(req.body.keywords,__dirname + "/../public/data/" + f,function (search) {
-        if(!search){
-            res.json({msg:"some err occured"});
-        }
-        else{
-            res.json({data:search});
-        }
+    listing.listingByTimestamp(req.body.time_stamp, __dirname + "/../public/data/" + f, function (data) {
+        res.json({data:data});
     });
 });
+
+
 
 module.exports = router;

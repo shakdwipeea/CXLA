@@ -38,6 +38,20 @@
         self.view.bind(Events.ENTER_PRESSED, function (query) {
             self.searchLog(query);
         });
+
+        /**
+         * event handler for reset
+         */
+        self.view.bind(Events.RESET, function () {
+            self.reset();
+        });
+
+        // initialize the chart library
+        // todo if chart library is not loaded when draw function
+        // called
+        self.view.initializeChartLibrary(function () {
+           console.log("Chart Library initialized");
+        });
     }
 
     /**
@@ -89,9 +103,7 @@
                self.view.displayError(err);
            } else {
                // display chart
-               self.view.displayChart(function () {
-                    self.view.drawBasic(data);
-               });
+               self.view.drawBasic(data);
            }
         });
     };
@@ -100,13 +112,23 @@
         var self = this;
         self.model.searchLog(query, function (err, data) {
            if (err) {
+               console.log('Error occurred', err);
                self.view.displayError(err);
            } else {
                //display chart
-               self.view.displayChart(function () {
-                  self.view.drawListing(data);
-               });
+               self.view.drawListing(data);
            }
+        });
+    };
+
+    /**
+     * Delete keywords from model
+     */
+    Controller.prototype.reset = function () {
+        var self = this;
+        console.log('Trying to reset');
+        self.model.resetKeywords(function () {
+            self.view.resetView();
         });
     };
 

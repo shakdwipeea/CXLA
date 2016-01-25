@@ -134,28 +134,32 @@ function findIndex(regex, chunk_of_data, highlighted_text, next_highlighted_text
 
                 var temp_num = [];
                 for (var i = matchAt; i < chunk_of_data.length - 1; i++) {
-
                     if (!isNaN(chunk_of_data[i]) && !isNaN(chunk_of_data[i + 1])) {
 
                         temp_num.push(chunk_of_data[i]);
                         temp_num.push(chunk_of_data[++i]);
+                        //console.log("FIRST",temp_num);
                     }
 
                     else if (!isNaN(chunk_of_data[i])) {
                         temp_num.push(chunk_of_data[i]);
+                        //console.log("SECOND",temp_num);
                     }
 
                     else if (temp_num.length > 0 && isNaN(chunk_of_data[i])) {
 
                         num.push(temp_num.join(""));
+                        //console.log("THIRD",temp_num);
                         temp_num = [];
                         break;
                     }
 
                 }
+                //console.log(num);
             }
             indices.push(match.index);
         }
+        console.log(indices);
         cb(highlighted_text, indices);
     });
 }
