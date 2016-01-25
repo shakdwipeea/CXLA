@@ -3,6 +3,7 @@ var express = require('express'),
     fs = require('fs');
     dataService = require('../utils/new_log_search');
     search_keyword = require('../utils/keyword_search');
+    listing = require('../utils/listing');
     _ = require('lodash');
     async = require('async');
 
@@ -71,6 +72,14 @@ router.post('/', function (req, res, next) {
     }
 
 
+});
+
+router.post('/listing', function (req,res,next) {
+
+    var f = req.body.file_name;
+    listing.listingByTimestamp(req.body.time_stamp, __dirname + "/../public/data/" + f, function (data) {
+        res.json({data:data});
+    });
 });
 
 

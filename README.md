@@ -2,3 +2,24 @@
 
 # CXLA
 Citrix Generic Log Analyzer
+
+----------
+
+###Prerequisites
+
+1. nodejs
+2. git 
+
+----------
+
+###Installation
+
+1. ``` git clone -b modifiedhighlight https://github.com/shakdwipeea/CXLA.git```
+
+2. Move to the directory CXLA
+
+3. Inside the directory
+```
+npm install
+```
+4. Now visit ```localhost:3000/gui```
