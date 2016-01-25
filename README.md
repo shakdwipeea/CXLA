@@ -3,7 +3,7 @@
 # CXLA
 Citrix Generic Log Analyzer
 
-----------
+
 
 ###Prerequisites
 
