@@ -55,7 +55,7 @@ and so on
 
 
 Snapshot 2:
-![alt-text](https://github.com/shakdwipeea/CXLA/blob/modifiedhighlight/public/images/Screen%20Shot%202016-01-25%20at%209.50.14%20AM.png)
+![alt-text](https://github.com/shakdwipeea/CXLA/blob/modifiedhighlight/public/images/Screen%20Shot%202016-01-25%20at%209.50.29%20AM.png)
 
 > consider the highlighted line different key value pairs can be:
 
