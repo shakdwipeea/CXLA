@@ -34,9 +34,9 @@ npm install
 
 3. For using the highlight feature
 
-..* first highlight the key then press next.
+  * first highlight the key then press next.
 
-..* second time highlight the value corresponding to it and then press next.
+  * second time highlight the value corresponding to it and then press next.
 
 
 > For highlighting the value utmost care should be taken that there must be characters followed by the value you want.for example:
