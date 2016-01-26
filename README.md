@@ -21,6 +21,8 @@ Citrix Generic Log Analyzer
 3. Inside the directory
 ```
 npm install
+
+node ./bin/www
 ```
 4. Now visit ```localhost:3000/gui```
 
