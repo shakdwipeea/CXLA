@@ -14,7 +14,7 @@ Citrix Generic Log Analyzer
 
 ###Installation
 
-1. ``` git clone -b modifiedhighlight https://github.com/shakdwipeea/CXLA.git```
+1. ``` git clone https://github.com/shakdwipeea/CXLA.git```
 
 2. Move to the directory CXLA
 
