@@ -117,7 +117,7 @@
      * @param callback Callback to call when library is loaded
      */
     View.prototype.initializeChartLibrary = function (callback) {
-        google.charts.load('current', {packages: ['corechart', 'line']});
+        google.charts.load('44', {packages: ['corechart', 'line']});
         google.charts.setOnLoadCallback(callback);
     };
 

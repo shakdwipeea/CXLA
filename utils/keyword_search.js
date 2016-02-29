@@ -38,8 +38,8 @@ function searchKeyword(keywords,filename,callback){
                 for(var t=0;t<time_stamp_value.length;t++){
                     final_data[time_stamp.getKeyByValue(time_stamp_value[t])]=0;
                 }
-                console.log("Searched keyword",searched_keyword,searched_keyword[keywords].length);
-                console.log("Time stamp ",time_stamp_value);
+                //console.log("Searched keyword",searched_keyword,searched_keyword[keywords].length);
+                //console.log("Time stamp ",time_stamp_value);
                 for(var i=0;i<time_stamp_value.length-1;i++){
                     for(var j=0;j<searched_keyword[keywords].length;j++){
                         if(searched_keyword[keywords][j]>time_stamp_value[i] && searched_keyword[keywords][j]<time_stamp_value[i+1]){
