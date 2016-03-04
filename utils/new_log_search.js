@@ -4,7 +4,7 @@ var time_stamp = require('./time_stamp_regex');
 var _ = require('lodash');
 
 
-function search__double_highlight(param, filename, callback) {
+function search__double_highlight(highlightTimestamp,param, filename, callback) {
     var indicies_of_highlighted_text = {},
         time_stamp_value = {},
         highlighted_index = {},
@@ -17,7 +17,7 @@ function search__double_highlight(param, filename, callback) {
         highlighted_text = param[0],
         highlighted_text_2 = param[1],
         next_highlighted_text = highlighted_text_2;
-    time_stamp.find_index_of_time(filename, function (time_stamp) {
+    time_stamp.find_index_of_time(highlightTimestamp,filename, function (time_stamp) {
 
         var stream = fs.createReadStream(filename);
 

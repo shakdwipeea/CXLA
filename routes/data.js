@@ -10,7 +10,7 @@ async = require('async');
 
 router.post('/search', function (req, res, next) {
     var f = req.body.file_name;
-    search_keyword.searchKeyword(req.body.keywords, __dirname + "/../public/data/" + f, function (search_keyword) {
+    search_keyword.searchKeyword("current time is Fri Aug 28 08:45:08 2015",req.body.keywords, __dirname + "/../public/data/" + f, function (search_keyword) {
         res.json({data: search_keyword});
     });
 });
@@ -49,7 +49,7 @@ router.post('/', function (req, res, next) {
     var k = 0, m = arr.length;
     for (var j = 0; j < arr.length; j++) {
 
-        dataService.logAnalyser(arr[j], __dirname + "/../public/data/" + f, function (arr) {
+        dataService.logAnalyser("current time is Fri Aug 28 10:46:55 2015",arr[j], __dirname + "/../public/data/" + f, function (arr) {
             data.push(arr);
             k++;
             complete();
