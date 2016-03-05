@@ -64,6 +64,7 @@ function searchKeyword(highlightTimestamp, keywords, filename, callback) {
 
                 //extracting keys of merged object
                 var key_of_merged_object = Object.keys(merged_object);
+                var lengthOfMerged = key_of_merged_object.length;
 
                 var value_of_merged_object = [];
                 var indicies_of_time = [];
@@ -81,10 +82,14 @@ function searchKeyword(highlightTimestamp, keywords, filename, callback) {
 
                 //storing the occurrences of searched keyword
                 for (var a = 0; a < indicies_of_time.length - 1; a++) {
-                    final_data[time_stamp.getKeyByValue(parseInt(key_of_merged_object[indicies_of_time[a]]))] = indicies_of_time[a + 1] - indicies_of_time[a] - 1;
+                    var keyOfMerged = parseInt(key_of_merged_object[indicies_of_time[a]]);
+                    var getKey = time_stamp.getKeyByValue(keyOfMerged);
+                    final_data[getKey] = indicies_of_time[a + 1] - indicies_of_time[a] - 1;
                 }
                 //for storing the occurrence of last timestamp
-                final_data[time_stamp.getKeyByValue(parseInt(key_of_merged_object[indicies_of_time[indicies_of_time.length - 1]]))] = key_of_merged_object.length - indicies_of_time[indicies_of_time.length - 1] - 1;
+                var keyOfMergedLast = parseInt(key_of_merged_object[indicies_of_time[a]]);
+                var getKeyLast = time_stamp.getKeyByValue(keyOfMergedLast);
+                final_data[getKeyLast] = lengthOfMerged - indicies_of_time[indicies_of_time.length - 1] - 1;
                 callback(final_data);
             });
     });
