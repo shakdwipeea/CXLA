@@ -4,7 +4,7 @@ var time_stamp = require('./time_stamp_regex');
 var _ = require('lodash');
 
 
-function search__double_highlight(highlightTimestamp,param, filename, callback) {
+export function searchDoubleHighlight(highlightTimestamp,param, filename, callback) {
     var indicies_of_highlighted_text = {},
         time_stamp_value = {},
         highlighted_index = {},
@@ -185,6 +185,3 @@ function findIndex(regex, chunk_of_data, highlighted_text, next_highlighted_text
     return [highlighted_text, indices];
 }
 
-module.exports = {
-    logAnalyser: search__double_highlight
-};
