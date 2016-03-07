@@ -9,13 +9,23 @@
         .hide {
             visibility: hidden;
         }
+
+        @media print {
+            .container {
+                visibility: hidden;
+            }
+
+            #banner, #saved-charts-container {
+                visibility: visible;
+            }
+        }
     </style>
 
 </head>
 <body>
 
 <div class="container">
-    <div class="jumbotron">
+    <div id="banner" class="jumbotron">
         <h1>Log Analyser</h1>
     </div>
 

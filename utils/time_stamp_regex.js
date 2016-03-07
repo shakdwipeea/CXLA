@@ -1,6 +1,5 @@
 'use strict';
-
-import fs from 'fs';
+var fs = require('fs');
 
 //generic regex for timestamp
 var find_index_of_metadata = function (highlightTimestamp, fileName, cb) {

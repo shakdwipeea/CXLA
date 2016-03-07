@@ -2,7 +2,7 @@ var fs = require('fs');
 var time_stamp = require('./time_stamp_regex');
 var _ = require('lodash');
 
-export function searchKeyword(highlightTimestamp, keywords, filename, callback) {
+function searchKeyword(highlightTimestamp, keywords, filename, callback) {
     var searched_keyword = {};
     var time_stamp_value = [];
     //  var keyword_searched = {};
@@ -145,3 +145,5 @@ function findIndex(regex, chunk_of_data, keywords, counter) {
     return [keywords, indices];
 
 }
+
+module.exports = searchKeyword;

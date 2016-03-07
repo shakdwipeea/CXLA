@@ -1,13 +1,12 @@
-import express from 'express';
-import fs from 'fs';
-import { searchDoubleHighlight } from '../utils/new_log_search';
-import { searchKeyword } from '../utils/keyword_search';
-import _ from 'lodash';
-import async from 'async';
+var express = require('express');
+var router = express.Router();
+var fs = require('fs');
+var searchDoubleHighlight = require('../utils/new_log_search');
+var searchKeyword = require('../utils/keyword_search');
+var _ = require('lodash');
+var async = require('async');
 
 const dataDirectory = '/../public/data/';
-const router = express.Router();
-
 
 router.post('/search', (req, res) => {
   // uploaded File name
@@ -15,7 +14,6 @@ router.post('/search', (req, res) => {
   const filePath = `${__dirname}${dataDirectory}${uploadedFile}`;
 
   const highlightedTimestamp = req.body.timeStampText;
-  // TODO : change hardcoded timestamp
   searchKeyword(highlightedTimestamp, req.body.keywords, filePath, (searchedKeyword) => {
     res.json({ data: searchedKeyword });
   });
@@ -25,8 +23,6 @@ router.post('/search', (req, res) => {
 router.post('/upload', (req, res) => {
   const oldPath = `${__dirname}${dataDirectory}${req.file.filename}`;
   const newPath = `${__dirname}${dataDirectory}${req.file.originalname}`;
-
-  console.log('Paths', oldPath, newPath)
 
   fs.rename(oldPath, newPath, (err) => {
     if (err) {
@@ -58,7 +54,6 @@ router.post('/', (req, res) => {
 
 
   async.forEachOf(arrayChunk, (arr, val, callback) => {
-        // TODO : change hardcoded timestamp
     searchDoubleHighlight(timeStampText, arr, filePath, (err, ar) => {
       if (err) {
         callback(err);
