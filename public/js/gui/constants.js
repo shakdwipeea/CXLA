@@ -9,7 +9,8 @@
 			ALL_SELECTED: "allSelected",
 			ENTER_PRESSED: "enterPressed",
 			RESET: "resetData",
-			TIMESTAMP_SELECTED: "TIMESTAMP_SELECTED"
+			TIMESTAMP_SELECTED: "TIMESTAMP_SELECTED",
+			SAVE_CHART: "SAVE_CHART"
 		};
 
 		/**

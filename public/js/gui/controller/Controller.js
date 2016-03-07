@@ -53,6 +53,13 @@
            self.storeTimeStampText(text);
         });
 
+        /**
+         * event handler for saving chart
+         */
+        self.view.bind(Events.SAVE_CHART, function () {
+            self.view.saveCurrentChart();
+        });
+
         // initialize the chart library
         // todo if chart library is not loaded when draw function
         // called

@@ -27,7 +27,10 @@
         this.$next = document.getElementById('next');
         this.$keywords = document.getElementById('keywords');
         this.$reset = document.getElementById('reset');
-        this.$selectTimestamp = document.getElementById('timestamp-select')
+
+
+        this.$selectTimestamp = document.getElementById('timestamp-select');
+        this.$saveChart = document.getElementById('save-chart');
 
         /**
          * Chart elements
@@ -40,6 +43,9 @@
          * @type {Element}
          */
         this.$searchBox = document.getElementById('searchQuery');
+
+        this.$savedChartsContainer = document.getElementById('saved-charts-container');
+        this.$savedCharts = document.getElementById('saved-charts');
     }
 
     /**
@@ -90,6 +96,12 @@
             self.$selectTimestamp.addEventListener('click', function () {
                 var text = window.getSelection().toString();
                 handler(text);
+            });
+        }
+
+        else if (event === self.Events.SAVE_CHART) {
+            self.$saveChart.addEventListener('click', function () {
+                handler();
             });
         }
     };
@@ -212,6 +224,17 @@
     View.prototype.resetView = function () {
         this.$keywords.innerHTML = "";
         this.$chart.innerHTML = "";
+    };
+
+    View.prototype.saveCurrentChart = function () {
+        var HTMLForChart = this.$chart.innerHTML;
+
+        var savedChartDiv = document.createElement('div');
+        savedChartDiv.innerHTML = HTMLForChart;
+
+        this.$savedChartsContainer.insertBefore(savedChartDiv, this.$savedCharts);
+        this.$savedCharts.innerHTML = "Ctrl + P to print charts";
+
     };
 
 
