@@ -110,7 +110,7 @@
                 self.view.changeNextText("Select Value");
             }
 
-            self.view.resetSelection();
+            //self.view.resetSelection();
 
         });
     };
