@@ -27,6 +27,7 @@
         this.$next = document.getElementById('next');
         this.$keywords = document.getElementById('keywords');
         this.$reset = document.getElementById('reset');
+        this.$selectTimestamp = document.getElementById('timestamp-select')
 
         /**
          * Chart elements
@@ -82,6 +83,13 @@
         else if (event === self.Events.RESET) {
             self.$reset.addEventListener('click', function () {
                handler();
+            });
+        }
+
+        else if (event === self.Events.TIMESTAMP_SELECTED) {
+            self.$selectTimestamp.addEventListener('click', function () {
+                var text = window.getSelection().toString();
+                handler(text);
             });
         }
     };

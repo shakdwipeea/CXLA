@@ -14,7 +14,7 @@ router.post('/search', (req, res) => {
   const uploadedFile = req.body.file_name;
   const filePath = `${__dirname}${dataDirectory}${uploadedFile}`;
 
-  const highlightedTimestamp = 'current time is Fri Aug 28 10:46:55 2015';
+  const highlightedTimestamp = req.body.timeStampText;
   // TODO : change hardcoded timestamp
   searchKeyword(highlightedTimestamp, req.body.keywords, filePath, (searchedKeyword) => {
     res.json({ data: searchedKeyword });
@@ -23,8 +23,10 @@ router.post('/search', (req, res) => {
 
 
 router.post('/upload', (req, res) => {
-  const oldPath = `__dirname${dataDirectory}${req.file.filename}`;
-  const newPath = `__dirname${dataDirectory}${req.file.originalname}`;
+  const oldPath = `${__dirname}${dataDirectory}${req.file.filename}`;
+  const newPath = `${__dirname}${dataDirectory}${req.file.originalname}`;
+
+  console.log('Paths', oldPath, newPath)
 
   fs.rename(oldPath, newPath, (err) => {
     if (err) {
@@ -51,10 +53,13 @@ router.post('/', (req, res) => {
   // breaking into chunks different key,value pairs
   const arrayChunk = _.chunk(highlightedData, 2);
 
+  const timeStampText = req.body.timeStampText;
+  console.log("The timestamp Text is", timeStampText);
+
 
   async.forEachOf(arrayChunk, (arr, val, callback) => {
         // TODO : change hardcoded timestamp
-    searchDoubleHighlight('current time is Fri Aug 28 10:46:55 2015', arr, filePath, (err, ar) => {
+    searchDoubleHighlight(timeStampText, arr, filePath, (err, ar) => {
       if (err) {
         callback(err);
       } else {

@@ -46,6 +46,13 @@
             self.reset();
         });
 
+        /**
+         * event handler for selecting timestamp
+         */
+        self.view.bind(Events.TIMESTAMP_SELECTED, function (text) {
+           self.storeTimeStampText(text);
+        });
+
         // initialize the chart library
         // todo if chart library is not loaded when draw function
         // called
@@ -130,6 +137,14 @@
         self.model.resetKeywords(function () {
             self.view.resetView();
         });
+    };
+
+    /**
+     * Save timestamp text
+     * @param text timestamp text
+     */
+    Controller.prototype.storeTimeStampText = function (text) {
+          this.model.storeTimeStampText(text);
     };
 
     /**
