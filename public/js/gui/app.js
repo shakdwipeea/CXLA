@@ -1,3 +1,10 @@
+/**
+ * TODO
+ * NExt text change
+ * Enabled buttons step by step
+ */
+
+
 (function  () {
 	/**
 	 *
@@ -38,6 +45,7 @@
 		 * @type {*|Controller}
          */
 		this.controller = new app.Controller(this.model, this.view, this.events);
+
 	}
 
 	/**

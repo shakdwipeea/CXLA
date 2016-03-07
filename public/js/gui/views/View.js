@@ -32,6 +32,8 @@
         this.$selectTimestamp = document.getElementById('timestamp-select');
         this.$saveChart = document.getElementById('save-chart');
 
+        this.$selectTimeStampDisplay =  document.getElementById('timestamp-text-display');
+
         /**
          * Chart elements
          * @type {Element}
@@ -46,6 +48,12 @@
 
         this.$savedChartsContainer = document.getElementById('saved-charts-container');
         this.$savedCharts = document.getElementById('saved-charts');
+
+        this.$go = document.getElementById('go');
+        this.$help = document.getElementById('help');
+
+
+        this.initializeDashboard();
     }
 
     /**
@@ -104,6 +112,18 @@
                 handler();
             });
         }
+
+        else if (event === self.Events.SEARCH_STRING) {
+            self.$go.addEventListener('click', function () {
+                handler(self.$searchBox.value);
+            });
+        }
+
+        else if (event === self.Events.TRIGGER_INTRO) {
+            self.$help.addEventListener('click', function () {
+                handler();
+            });
+        }
     };
 
     /**
@@ -113,6 +133,8 @@
     View.prototype.displayFileData = function (data) {
         this.$fileDisplayArea.innerHTML = data;
         this.template.initialize();
+
+        changeVisiblity(this.$selectTimestamp, true);
     };
 
     /**
@@ -224,6 +246,10 @@
     View.prototype.resetView = function () {
         this.$keywords.innerHTML = "";
         this.$chart.innerHTML = "";
+        this.$selectTimeStampDisplay.innerHTML = "";
+
+        this.initializeDashboard();
+        changeVisiblity(this.$selectTimestamp, true);
     };
 
     View.prototype.saveCurrentChart = function () {
@@ -235,6 +261,60 @@
         this.$savedChartsContainer.insertBefore(savedChartDiv, this.$savedCharts);
         this.$savedCharts.innerHTML = "Ctrl + P to print charts";
 
+    };
+
+    /**
+     *
+     * @param domElement Element in consideration
+     * @param show Boolean Make visible or not
+     */
+    function changeVisiblity (domElement, show) {
+
+        if (show) {
+            domElement.removeAttribute("disabled");
+        } else {
+            domElement.setAttribute("disabled", "disabled");
+        }
+
+    };
+
+    View.prototype.initializeDashboard = function () {
+        changeVisiblity(this.$selectTimestamp, false);
+        changeVisiblity(this.$done, false);
+        changeVisiblity(this.$saveChart, false);
+        changeVisiblity(this.$next, false);
+        changeVisiblity(this.$go, false);
+    };
+
+    View.prototype.displayTimeStamp = function (text) {
+        this.$selectTimeStampDisplay.innerHTML = text;
+    };
+
+    View.prototype.enableNextButton = function () {
+        changeVisiblity(this.$next, true);
+        changeVisiblity(this.$selectTimestamp, false);
+        changeVisiblity(this.$go, true);
+    };
+
+    View.prototype.resetSelection = function () {
+        window.getSelection().empty();
+    };
+
+    View.prototype.enablePlotCharts = function () {
+          changeVisiblity(this.$done, true);
+    };
+
+    View.prototype.enableSaveChart = function () {
+        changeVisiblity(this.$saveChart, true);
+    };
+
+    View.prototype.triggerIntro = function () {
+        var intro = new introJs();
+        intro.start();
+    };
+
+    View.prototype.changeNextText = function (text) {
+        this.$next.innerHTML = text;
     };
 
 

@@ -60,12 +60,22 @@
             self.view.saveCurrentChart();
         });
 
+        self.view.bind(Events.SEARCH_STRING, function (query) {
+            self.searchLog(query);
+        });
+
+        self.view.bind(Events.TRIGGER_INTRO, function () {
+            self.view.triggerIntro();
+        });
+
         // initialize the chart library
         // todo if chart library is not loaded when draw function
         // called
         self.view.initializeChartLibrary(function () {
            console.log("Chart Library initialized");
         });
+
+        self.view.triggerIntro();
     }
 
     /**
@@ -92,6 +102,14 @@
         var self = this;
         self.model.storeSelectedText(selectedText, function (keywords) {
             self.view.displayKeywords(keywords);
+
+            if (keywords.length % 2 === 0) {
+                self.view.changeNextText("Select Key");
+                self.view.enablePlotCharts();
+            } else {
+                self.view.changeNextText("Select Value");
+            }
+
         });
     };
 
@@ -118,6 +136,7 @@
            } else {
                // display chart
                self.view.drawBasic(data);
+               self.view.enableSaveChart();
            }
         });
     };
@@ -131,6 +150,7 @@
            } else {
                //display chart
                self.view.drawListing(data);
+               self.view.enableSaveChart();
            }
         });
     };
@@ -152,6 +172,9 @@
      */
     Controller.prototype.storeTimeStampText = function (text) {
           this.model.storeTimeStampText(text);
+          this.view.displayTimeStamp(text);
+          this.view.enableNextButton();
+          this.view.resetSelection();
     };
 
     /**
