@@ -3,7 +3,7 @@
   "version": "1.0.3",
   "scripts": {
     "start": "node ./bin/www",
-    "patch-release": "npm version patch && npm publish && git push --follow-tags"
+    "patch-release": "npm version patch && npm publish && git push origin --follow-tags"
   },
   "repository": {
     "type": "git",
@@ -45,7 +45,9 @@
     "eslint-config-airbnb": "^6.1.0",
     "eslint-plugin-react": "^4.2.0"
   },
-  "bin": "./bin/www",
+  "bin": {
+    "cxla": "bin/www"
+  },
   "author": "Akash Shakdwipeea <ashakdwipeea@gmail.com>",
   "license": "ISC"
 }
