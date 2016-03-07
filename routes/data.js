@@ -1,78 +1,73 @@
-var express = require('express'),
-    router = express.Router(),
-    fs = require('fs');
-dataService = require('../utils/new_log_search');
-search_keyword = require('../utils/keyword_search');
-listing = require('../utils/listing');
-_ = require('lodash');
-async = require('async');
+import express from 'express';
+import fs from 'fs';
+import { searchDoubleHighlight } from '../utils/new_log_search';
+import { searchKeyword } from '../utils/keyword_search';
+import _ from 'lodash';
+import async from 'async';
+
+const dataDirectory = '/../public/data/';
+const router = express.Router();
 
 
-router.post('/search', function (req, res, next) {
-    var f = req.body.file_name;
-    search_keyword.searchKeyword(req.body.keywords, __dirname + "/../public/data/" + f, function (search_keyword) {
-        res.json({data: search_keyword});
-    });
+router.post('/search', (req, res) => {
+  // uploaded File name
+  const uploadedFile = req.body.file_name;
+  const filePath = `${__dirname}${dataDirectory}${uploadedFile}`;
+
+  const highlightedTimestamp = 'current time is Fri Aug 28 10:46:55 2015';
+  // TODO : change hardcoded timestamp
+  searchKeyword(highlightedTimestamp, req.body.keywords, filePath, (searchedKeyword) => {
+    res.json({ data: searchedKeyword });
+  });
 });
 
 
-router.post('/upload', function (req, res, next) {
+router.post('/upload', (req, res) => {
+  const oldPath = `__dirname${dataDirectory}${req.file.filename}`;
+  const newPath = `__dirname${dataDirectory}${req.file.originalname}`;
 
-
-    var old_path = __dirname + "/../public/data/" + req.file.filename;
-    console.log(old_path);
-    var new_path = __dirname + "/../public/data/" + req.file.originalname;
-    console.log(new_path);
-
-    fs.rename(old_path, new_path, function (err) {
-        if (err) {
-            console.log(err);
-            res.json({err: err});
-        }
-        else {
-            res.json({msg: "uploaded"});
-        }
-    });
-
-});
-
-
-/**
- *
- */
-router.post('/', function (req, res, next) {
-
-    var d = req.body.data;
-    var f = req.body.file_name;
-    var data = [];
-    var arr = _.chunk(d, 2);
-    var k = 0, m = arr.length;
-    for (var j = 0; j < arr.length; j++) {
-
-        dataService.logAnalyser(arr[j], __dirname + "/../public/data/" + f, function (arr) {
-            data.push(arr);
-            k++;
-            complete();
-        });
+  fs.rename(oldPath, newPath, (err) => {
+    if (err) {
+      res.json({ error: err });
+    } else {
+      res.json({ message: 'uploaded' });
     }
-    function complete() {
-        if (k == m) {
-            res.json({
-                data: data
-            });
-        }
-    }
-
-
+  });
 });
 
-router.post('/listing', function (req, res, next) {
 
-    var f = req.body.file_name;
-    listing.listingByTimestamp(req.body.time_stamp, __dirname + "/../public/data/" + f, function (data) {
-        res.json({data: data});
+router.post('/', (req, res) => {
+  // stores one or more highlighted key,value pair
+  const highlightedData = req.body.data;
+
+  // uploaded File name
+  const uploadedFileName = req.body.file_name;
+
+  const filePath = `${__dirname}${dataDirectory}${uploadedFileName}`;
+
+  // array of objects => {timeStamp : value}
+  const dataArray = [];
+
+  // breaking into chunks different key,value pairs
+  const arrayChunk = _.chunk(highlightedData, 2);
+
+
+  async.forEachOf(arrayChunk, (arr, val, callback) => {
+        // TODO : change hardcoded timestamp
+    searchDoubleHighlight('current time is Fri Aug 28 10:46:55 2015', arr, filePath, (err, ar) => {
+      if (err) {
+        callback(err);
+      } else {
+        dataArray.push(ar);
+      }
+      callback();
     });
+  }, (err) => {
+    if (err) {
+      res.json({ error: err });
+    }
+    res.json({ data: dataArray });
+  });
 });
-
 
 module.exports = router;
