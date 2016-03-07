@@ -80,8 +80,10 @@ export function searchDoubleHighlight(highlightTimestamp,param, filename, callba
                     }
                 }
 
-
-                callback(final_data);
+                if(final_data)
+                callback(null,final_data);
+                else
+                callback("err",null);
 
 
             });
@@ -156,6 +158,7 @@ function findOccurence(data, highlighted_text, next_highlighted_text, indicies_o
 
 
     var new_string = new_regex.join("");
+    //console.log(new_string);
     var regex = new RegExp(new_string, 'g');
     var result = findIndex(regex, chunk_of_data, highlighted_text, next_highlighted_text, num, counter);
     var keyword = result[0];
