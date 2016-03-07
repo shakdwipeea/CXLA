@@ -12,6 +12,9 @@ Citrix Generic Log Analyzer
 
 ----------
 
+###Installing Nodejs
+[See instructions here](https://github.com/nodejs/node#unix--macintosh)
+
 ###Installation
 
 1. ``` git clone https://github.com/shakdwipeea/CXLA.git```
@@ -21,8 +24,8 @@ Citrix Generic Log Analyzer
 3. Inside the directory
 ```
 npm install
-
-node ./bin/www
+npm install -g pm2
+pm2 start bin/www
 ```
 4. Now visit ```localhost:3000/gui```
 
