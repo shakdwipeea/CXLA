@@ -1,9 +1,12 @@
 {
-  "name": "CXLA",
-  "version": "0.0.0",
-  "private": true,
+  "name": "cxla",
+  "version": "1.0.0",
   "scripts": {
     "start": "node ./bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shakdwipeea/cxla"
   },
   "dependencies": {
     "assert": "^1.3.0",
@@ -40,5 +43,8 @@
     "eslint": "^2.3.0",
     "eslint-config-airbnb": "^6.1.0",
     "eslint-plugin-react": "^4.2.0"
-  }
+  },
+  "bin": "./bin/www",
+  "author": "Akash Shakdwipeea <ashakdwipeea@gmail.com>",
+  "license": "ISC"
 }
