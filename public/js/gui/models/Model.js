@@ -108,6 +108,7 @@
      */
     Model.prototype.resetKeywords = function (callback) {
         this.keywords = [];
+        this.timeStampSelectText = "";
         callback();
     };
 
