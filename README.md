@@ -27,7 +27,7 @@ npm install
 npm install -g pm2
 pm2 start bin/www
 ```
-4. Now visit ```localhost:3000/gui```
+4. Now visit ```localhost:3000```
 
 
 ------------

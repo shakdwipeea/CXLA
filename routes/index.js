@@ -3,11 +3,11 @@ var router = express.Router();
 
 
 router.get('/error', function (req, res){
-    res.render("index");
+    res.render("error");
 });
 
 
-router.get('/gui', function(req, res){
+router.get('/', function(req, res){
     res.render("gui");
 });
 
