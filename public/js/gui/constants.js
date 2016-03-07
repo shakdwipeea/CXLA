@@ -8,7 +8,8 @@
 			TEXT_SELECTED: "textSelected",
 			ALL_SELECTED: "allSelected",
 			ENTER_PRESSED: "enterPressed",
-			RESET: "resetData"
+			RESET: "resetData",
+			TIMESTAMP_SELECTED: "TIMESTAMP_SELECTED"
 		};
 
 		/**

@@ -5,6 +5,7 @@
     function Model() {
         this.keywords = [];
         this.fileName = "";
+        this.timeStampSelectText = "";
     }
 
     /**
@@ -62,12 +63,15 @@
      * @param {postSelectedTextCallback} callback
      */
     Model.prototype.postSelectedText = function (callback) {
+        console.log("timeStampTet", this.timeStampSelectText);
+
         if (this.keywords.length % 2 == 0) {
             superagent
                 .post('/data')
                 .send({
                     file_name: this.fileName,
-                    data: this.keywords
+                    data: this.keywords,
+                    timeStampText: this.timeStampSelectText
                 })
                 .end(function (err, res) {
                     console.log(err, res);
@@ -88,7 +92,8 @@
         superagent.post('/data/search')
             .send({
                 file_name: this.fileName,
-                keywords: query
+                keywords: query,
+                timeStampText: this.timeStampSelectText
             })
             .end(function (err, res) {
                 console.log(err, res);
@@ -104,6 +109,15 @@
     Model.prototype.resetKeywords = function (callback) {
         this.keywords = [];
         callback();
+    };
+
+    /**
+     * Store timestamp for the current field
+     * @param text Timestamp selected
+     */
+    Model.prototype.storeTimeStampText = function (text) {
+        this.timeStampSelectText = text;
+        console.log("Storing timestamp", text, this.timeStampSelectText);
     };
 
 
