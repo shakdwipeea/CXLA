@@ -110,6 +110,8 @@
                 self.view.changeNextText("Select Value");
             }
 
+            self.view.resetSelection();
+
         });
     };
 
