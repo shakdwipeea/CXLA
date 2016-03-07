@@ -69,7 +69,7 @@
         var self = this;
         self.model.readFile(file, function (event) {
             var readFileData = event.target.result.split('\n')
-                .splice(0, 20)
+                .splice(0, 50)
                 .join("<br />");
 
             self.view.displayFileData(readFileData);
