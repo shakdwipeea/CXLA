@@ -18,9 +18,9 @@ var find_index_of_metadata = function (highlightTimestamp, fileName, cb) {
         else if (highlightTimestamp[k] == ' ')reg += '\\s';
         else if (/^\W$/.test(highlightTimestamp[k]))reg += '\\W';
     }
-
     //regex is created
     var regex = new RegExp(reg, 'g');
+
 
     //
     stream.on('data', function (data) {

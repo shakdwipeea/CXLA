@@ -10,14 +10,8 @@
             visibility: hidden;
         }
 
-        @media print {
-            .container {
-                visibility: hidden;
-            }
-
-            #banner, #saved-charts-container {
-                visibility: visible;
-            }
+        @media print{
+            #fileDisplayArea,#fileInput,#help,#reset,#go,#done, { display: none !important; }
         }
     </style>
 
@@ -25,7 +19,7 @@
 <body>
 
 <div class="container">
-    <div id="banner" class="jumbotron">
+    <div class="jumbotron">
         <h1>Log Analyser</h1>
     </div>
 
@@ -109,12 +103,12 @@
 
                 <button data-step="3"
                         data-intro="You can highlight key-value pairs in which you are interested."
-                        class="btn btn-primary btn-lg" type="submit" name="button" id="next"  >Select Key</button>
+                        class="btn btn-primary btn-lg" type="submit" name="button" id="next"  >Select Entity</button>
                 </div>
             </div>
             </div>
-    <div class="panel" id="fileDisplayArea">
-    </div>
+    <pre class="panel" id="fileDisplayArea">
+    </pre>
         <hr/>
 
 </div>

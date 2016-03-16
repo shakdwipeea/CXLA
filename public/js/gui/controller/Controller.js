@@ -86,7 +86,7 @@
         var self = this;
         self.model.readFile(file, function (event) {
             var readFileData = event.target.result.split('\n')
-                .splice(0, 50)
+                .splice(0, 100)
                 .join("<br />");
 
             self.view.displayFileData(readFileData);
@@ -104,7 +104,7 @@
             self.view.displayKeywords(keywords);
 
             if (keywords.length % 2 === 0) {
-                self.view.changeNextText("Select Key");
+                self.view.changeNextText("Select Entity");
                 self.view.enablePlotCharts();
             } else {
                 self.view.changeNextText("Select Value");
