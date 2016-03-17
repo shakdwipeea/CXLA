@@ -10,8 +10,19 @@
             visibility: hidden;
         }
 
-        @media print{
-            #fileDisplayArea,#fileInput,#help,#reset,#go,#done, { display: none !important; }
+        @media only print {
+            body {
+                visibility: hidden;
+            }
+            
+            .jumbotron, #saved-charts-container {
+                visibility: visible;
+            }
+
+            #saved-charts-container {
+                position: absolute;
+                top:100px;
+            }
         }
     </style>
 

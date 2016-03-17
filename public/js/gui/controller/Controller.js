@@ -84,6 +84,10 @@
      */
     Controller.prototype.readFile = function (file) {
         var self = this;
+
+        //reset current state
+        self.reset();
+
         self.model.readFile(file, function (event) {
             var readFileData = event.target.result.split('\n')
                 .splice(0, 100)

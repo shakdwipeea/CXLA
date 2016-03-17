@@ -131,6 +131,7 @@
      * @param data Data to be displayed
      */
     View.prototype.displayFileData = function (data) {
+
         this.$fileDisplayArea.innerHTML = data;
         this.template.initialize();
 
@@ -273,6 +274,9 @@
 
         this.$savedChartsContainer.insertBefore(savedChartDiv, this.$savedCharts);
         this.$savedCharts.innerHTML = "Ctrl + P to print charts";
+
+        // clear current chart
+        this.$chart.innerHTML = "";
 
     };
 
