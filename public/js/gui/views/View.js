@@ -178,6 +178,8 @@
 
 
     View.prototype.drawBasic = function (data) {
+        console.log('data is', data);
+
         var modifiedData = [];
         //todo this in controller
         Object.keys(data[0]).forEach(function (key) {
@@ -192,6 +194,8 @@
             modifiedData.push(tempArray);
         });
 
+        console.log("Modified data is ", modifiedData)
+
         var dataTable = new google.visualization.DataTable();
         dataTable.addColumn("string","time");
         for(var i=0;i<data.length;i++){
@@ -199,13 +203,21 @@
         }
         dataTable.addRows(modifiedData);
 
+        var yLabel = "";
+
+        for (var i = 0; i < data.length; i++) {
+            yLabel += document.getElementById(i).value + "-";
+        }
+        yLabel = yLabel.substring(0, yLabel.length-1);
+
+
         //todo abstract
         var options = {
             hAxis: {
                 title: 'Time'
             },
             vAxis: {
-                title: ''
+                title: yLabel
             },
             pointSize:5
         };
