@@ -198,8 +198,9 @@
 
         var dataTable = new google.visualization.DataTable();
         dataTable.addColumn("string","time");
+        console.log("DATA",data);
         for(var i=0;i<data.length;i++){
-            dataTable.addColumn("number", i.toString());
+            dataTable.addColumn("number", document.getElementById(i + "key").innerHTML);
         }
         dataTable.addRows(modifiedData);
 

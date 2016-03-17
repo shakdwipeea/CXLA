@@ -9,7 +9,7 @@
 
         {{#each keywords}}
             <tr>
-                <td>{{key}} </td>
+                <td id={{@index}}key>{{key}} </td>
                 <td><input type="text" id={{@index}} name="name-entity"></td>
                 <td>{{value}}</td>
             </tr>
