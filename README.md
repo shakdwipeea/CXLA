@@ -13,7 +13,24 @@ Citrix Generic Log Analyzer
 ----------
 
 ###Installing Nodejs
-[See instructions here](https://github.com/nodejs/node#unix--macintosh)
+```shell
+wget https://nodejs.org/dist/v5.9.0/node-v5.9.0-linux-x64.tar.xz
+tar -xvf node-v5.9.0-linux-x64.tar.xz
+cd node-v5.9.0-linux-x64/
+```
+
+Add node-v5.9.0-linux-x64/bin to the system path.
+
+1.Open ~/.bashrc in your editor
+
+2.Type in
+export PATH=$PATH:/path/to/your/directory/node-v5.9.0-linux-x64/bin
+3.Finally after saving the file
+
+In terminal type
+source ~/.bashrc
+
+
 
 ###Installation
 
