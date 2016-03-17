@@ -24,7 +24,7 @@ Add node-v5.9.0-linux-x64/bin to the system path.
 1.Open ~/.bashrc in your editor
 
 2.Type in
-export PATH=$PATH:/path/to/your/directory/node-v5.9.0-linux-x64/bin
+export PATH=$PATH:/path/to/your/directory/node-v5.9.0-linux-x64/bin  
 3.Finally after saving the file
 
 In terminal type
