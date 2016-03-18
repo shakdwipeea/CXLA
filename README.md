@@ -59,11 +59,16 @@ pm2 start bin/www
   * first highlight the key then press next.
 
   * second time highlight the value corresponding to it and then press next.
+  
+  * In the table of key,name,value enter the name of attribute you want to plot in the input field for example:
+  
+Snapshot 1:
+![alt-text](https://github.com/shakdwipeea/CXLA/blob/master/public/images/Screen%20Shot%202016-03-18%20at%206.12.28%20PM.png)
 
 
 > For highlighting the value utmost care should be taken that there must be characters followed by the value you want.for example:
 
-Snapshot 1:
+Snapshot 2:
 ![alt-text](https://github.com/shakdwipeea/CXLA/blob/master/public/images/Screen%20Shot%202016-01-25%20at%209.43.14%20AM.png)
 
 > consider the highlighted line different key value pairs can be:
@@ -76,7 +81,7 @@ Snapshot 1:
 and so on
 
 
-Snapshot 2:
+Snapshot 3:
 ![alt-text](https://github.com/shakdwipeea/CXLA/blob/master/public/images/Screen%20Shot%202016-01-25%20at%209.50.29%20AM.png)
 
 > consider the highlighted line different key value pairs can be:
