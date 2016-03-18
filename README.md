@@ -13,11 +13,19 @@ Citrix Generic Log Analyzer
 ----------
 
 ###Installing Nodejs
+  * For 64-bit 
 ```shell
 wget https://nodejs.org/dist/v5.9.0/node-v5.9.0-linux-x64.tar.xz
 tar -xvf node-v5.9.0-linux-x64.tar.xz
 cd node-v5.9.0-linux-x64/
 ```
+  * For 32-bit
+```shell
+wget https://nodejs.org/dist/v4.4.0/node-v4.4.0-linux-x86.tar.xz
+tar -xvf node-v4.4.0-linux-x86.tar.xz
+cd node-v4.4.0-linux-x86/
+```
+  * Depending upon the architecture follow the below steps:
 
 Add node-v5.9.0-linux-x64/bin to the system path.
 
