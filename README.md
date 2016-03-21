@@ -1,5 +1,8 @@
 [![Build Status](https://semaphoreci.com/api/v1/projects/6b0be2a6-0da9-4a20-991a-7373628354d0/663555/badge.svg)](https://semaphoreci.com/shakdwipeea/cxla)
 
+ [![npm version](https://badge.fury.io/js/cxla.svg)](https://badge.fury.io/js/cxla)
+ [![npm downloads](https://img.shields.io/npm/dt/cxla.svg)](https://npmjs.org/package/cxla)
+
 # CXLA
 Citrix Generic Log Analyzer
 
@@ -13,11 +16,19 @@ Citrix Generic Log Analyzer
 ----------
 
 ###Installing Nodejs
+  * For 64-bit 
 ```shell
 wget https://nodejs.org/dist/v5.9.0/node-v5.9.0-linux-x64.tar.xz
 tar -xvf node-v5.9.0-linux-x64.tar.xz
 cd node-v5.9.0-linux-x64/
 ```
+  * For 32-bit
+```shell
+wget https://nodejs.org/dist/v4.4.0/node-v4.4.0-linux-x86.tar.xz
+tar -xvf node-v4.4.0-linux-x86.tar.xz
+cd node-v4.4.0-linux-x86/
+```
+  * Depending upon the architecture follow the below steps:
 
 Add node-v5.9.0-linux-x64/bin to the system path.
 
@@ -59,11 +70,16 @@ pm2 start bin/www
   * first highlight the key then press next.
 
   * second time highlight the value corresponding to it and then press next.
+  
+  * In the table of key,name,value enter the name of attribute you want to plot in the input field for example:
+  
+Snapshot 1:
+![alt-text](https://github.com/shakdwipeea/CXLA/blob/master/public/images/Screen%20Shot%202016-03-18%20at%206.12.28%20PM.png)
 
 
 > For highlighting the value utmost care should be taken that there must be characters followed by the value you want.for example:
 
-Snapshot 1:
+Snapshot 2:
 ![alt-text](https://github.com/shakdwipeea/CXLA/blob/master/public/images/Screen%20Shot%202016-01-25%20at%209.43.14%20AM.png)
 
 > consider the highlighted line different key value pairs can be:
@@ -76,7 +92,7 @@ Snapshot 1:
 and so on
 
 
-Snapshot 2:
+Snapshot 3:
 ![alt-text](https://github.com/shakdwipeea/CXLA/blob/master/public/images/Screen%20Shot%202016-01-25%20at%209.50.29%20AM.png)
 
 > consider the highlighted line different key value pairs can be:
