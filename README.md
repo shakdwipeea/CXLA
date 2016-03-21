@@ -55,6 +55,16 @@ npm install
 npm install -g pm2
 pm2 start bin/www
 ```
+OR
+```
+npm install -g nodemon
+nodemon
+```
+OR
+
+```
+node ./bin/www
+```
 4. Now visit ```localhost:8080```
 
 
