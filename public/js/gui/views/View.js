@@ -219,7 +219,7 @@
                 title: 'Time'
             },
             vAxis: {
-                title: yLabel
+                title: ''
             },
             pointSize:5
         };

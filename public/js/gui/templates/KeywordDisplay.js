@@ -33,6 +33,10 @@
             var entry = {};
             entry.key = keywordsArray[i];
             entry.value = keywordsArray[i + 1];
+
+            var nameNode = document.getElementById(keywords.length);
+            entry.name = nameNode ? nameNode.value : "";
+
             keywords.push(entry);
         }
         var context = {};
