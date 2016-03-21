@@ -201,7 +201,7 @@
         dataTable.addColumn("string","time");
         console.log("DATA",data);
         for(var i=0;i<data.length;i++){
-            dataTable.addColumn("number", document.getElementById(i + "key").innerHTML);
+            dataTable.addColumn("number", document.getElementById(i).value);
         }
         dataTable.addRows(modifiedData);
 
