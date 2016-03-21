@@ -273,7 +273,7 @@
         savedChartDiv.innerHTML = HTMLForChart;
 
         this.$savedChartsContainer.insertBefore(savedChartDiv, this.$savedCharts);
-        this.$savedCharts.innerHTML = "Ctrl + P to print charts";
+        //this.$savedCharts.innerHTML = "Ctrl + P to print charts";
 
         // clear current chart
         this.$chart.innerHTML = "";
