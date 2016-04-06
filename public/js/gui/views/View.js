@@ -327,6 +327,7 @@
 
     View.prototype.triggerIntro = function () {
         var intro = new introJs();
+        intro.setOption('showProgress', true);
         intro.start();
     };
 
