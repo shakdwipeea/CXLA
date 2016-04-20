@@ -95,20 +95,51 @@ function searchDoubleHighlight(highlightTimestamp,param, filename, callback) {
 function findOccurence(data, highlighted_text, next_highlighted_text, indicies_of_highlighted_text, num, counter) {
     var chunk_of_data = data.toString('utf-8');
     var new_regex = [];
-    var digit_group = '\\d+(\\.\\d+)?';
+    var digit_group = '(-)?\\d+(\\.\\d+)?';
     var flag = 0;
 
 
     if (highlighted_text === next_highlighted_text) {
-        for (var j = 0; j < highlighted_text.length; j++) {
+        if (highlighted_text[0] === '.') {
+        }
+
+        else if (highlighted_text[0] === ' ') {
+            //if(j==0)new_regex.push('\\s');
+            new_regex.push('\\s');
+
+        }
+
+        else if (highlighted_text[0] === '[' || highlighted_text[0] === ']' ||
+            highlighted_text[0] === ':' || highlighted_text[0] === '/' || highlighted_text[0] === '(' ||
+            highlighted_text[0] === ')' || highlighted_text[0] === ',' || highlighted_text[0] === '-' || highlighted_text[0] === '_') {
+
+
+            new_regex.push('\\');
+            new_regex.push(highlighted_text[0]);
+        }
+
+        else if (!isNaN(highlighted_text[0])) {
+
+
+            new_regex.push(digit_group);
+
+        }
+
+        else {
+            new_regex.push(highlighted_text[0]);
+        }
+        for (var j = 1; j < highlighted_text.length; j++) {
 
             if (highlighted_text[j] === '.') {
-                flag = 0;
+                flag = 1;
             }
 
             else if (highlighted_text[j] === ' ') {
-                flag = 1;
-                new_regex.push('\\s');
+
+                if(flag == 1){
+                    new_regex.push('\\s+');
+
+                    flag = 0;}
             }
 
             else if (highlighted_text[j] === '[' || highlighted_text[j] === ']' ||
@@ -120,17 +151,20 @@ function findOccurence(data, highlighted_text, next_highlighted_text, indicies_o
                 new_regex.push(highlighted_text[j]);
             }
 
-            else if (!isNaN(highlighted_text[j])) {
+            else if (/^\d+$/.test(highlighted_text[j]) && !/^\d+$/.test(highlighted_text[j-1])) {
+                new_regex.push(digit_group);
+                flag=1;
 
-                if (flag === 1)
-                    new_regex.push(digit_group);
-                flag = 0;
             }
+            else if (/^\d+$/.test(highlighted_text[j]) && /^\d+$/.test(highlighted_text[j-1])) {
+                continue;
 
+            }
             else {
                 new_regex.push(highlighted_text[j]);
             }
         }
+      
     }
     else {
 
@@ -160,6 +194,7 @@ function findOccurence(data, highlighted_text, next_highlighted_text, indicies_o
     var new_string = new_regex.join("");
     //console.log(new_string);
     var regex = new RegExp(new_string, 'g');
+    //console.log("REGEX",regex);
     var result = findIndex(regex, chunk_of_data, highlighted_text, next_highlighted_text, num, counter);
     var keyword = result[0];
     var indices = result[1];
@@ -179,7 +214,7 @@ function findIndex(regex, chunk_of_data, highlighted_text, next_highlighted_text
     while ((match = regex.exec(chunk_of_data)) !== null) {
         if (highlighted_text === next_highlighted_text) {
 
-            num.push((match[0].match(/\d+(\.\d+)?/g)).slice(-1).pop());
+            num.push((match[0].match(/(-)?\d+(\.\d+)?/g)).slice(-1).pop());
         }
 
         indices.push(match.index + counter);
