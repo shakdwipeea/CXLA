@@ -4,7 +4,7 @@
  [![npm downloads](https://img.shields.io/npm/dt/cxla.svg)](https://npmjs.org/package/cxla)
 
 # CXLA
-Citrix Generic Log Analyzer
+:tada::boom::sparkles: Generic Log Analyzer
 
 
 
