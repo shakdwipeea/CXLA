@@ -38,7 +38,7 @@ function searchDoubleHighlight(highlightTimestamp,param, filename, callback) {
             })
 
             .addListener('close', function () {
-
+                console.log("IOFHT",indicies_of_highlighted_text);
                 for (var i = 0; i < indicies_of_highlighted_text[highlighted_text].length; i++) {
                     highlighted_1[indicies_of_highlighted_text[highlighted_text][i]] = "first";
                 }
@@ -47,15 +47,27 @@ function searchDoubleHighlight(highlightTimestamp,param, filename, callback) {
                 }
 
                 var merged_objects = _.merge(highlighted_1, highlighted_2);
+                //console.log("Merged ",merged_objects);
                 var keys_of_mergedObjects = Object.keys(merged_objects);
+                //console.log("KEY",keys_of_mergedObjects);
+                if(indicies_of_highlighted_text[highlighted_text][0] < indicies_of_highlighted_text[highlighted_text_2][0] && false) {
+                    console.log("FIRST");
+                    for (var l = 0; l < keys_of_mergedObjects.length - 1; l++) {
 
-                for (var l = 0; l < keys_of_mergedObjects.length - 1; l++) {
+                        if (merged_objects[keys_of_mergedObjects[l]] === "first" && merged_objects[keys_of_mergedObjects[l + 1]] === "second") {
+                            value_at_indicies[keys_of_mergedObjects[l + 1]] = indicies_of_highlighted_text[highlighted_text_2].indexOf(parseInt(keys_of_mergedObjects[l + 1]));
+                        }
+                    }
+                } else {
+                    console.log("SECOND");
+                    for (var y = 0; y < keys_of_mergedObjects.length - 1; y++) {
 
-                    if (merged_objects[keys_of_mergedObjects[l]] === "first" && merged_objects[keys_of_mergedObjects[l + 1]] === "second") {
-                        value_at_indicies[keys_of_mergedObjects[l + 1]] = indicies_of_highlighted_text[highlighted_text_2].indexOf(parseInt(keys_of_mergedObjects[l + 1]));
+                        if (merged_objects[keys_of_mergedObjects[y]] === "second" && merged_objects[keys_of_mergedObjects[y + 1]] === "first") {
+                            value_at_indicies[keys_of_mergedObjects[y]] = indicies_of_highlighted_text[highlighted_text_2].indexOf(parseInt(keys_of_mergedObjects[y]));
+                        }
                     }
                 }
-
+                //console.log("VAI",value_at_indicies);
                 Object.keys(value_at_indicies).forEach(function (key) {
                     final_num.push(num[value_at_indicies[key]]);
                 });
@@ -153,12 +165,11 @@ function findOccurence(data, highlighted_text, next_highlighted_text, indicies_o
 
             else if (/^\d+$/.test(highlighted_text[j]) && !/^\d+$/.test(highlighted_text[j-1])) {
                 new_regex.push(digit_group);
-                flag=1;
-
+                flag = 1;
+ 
             }
             else if (/^\d+$/.test(highlighted_text[j]) && /^\d+$/.test(highlighted_text[j-1])) {
-                continue;
-
+                flag = 1;
             }
             else {
                 new_regex.push(highlighted_text[j]);
