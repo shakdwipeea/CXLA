@@ -37,7 +37,7 @@ router.post('/upload', (req, res) => {
 router.post('/', (req, res) => {
   // stores one or more highlighted key,value pair
   const highlightedData = req.body.data;
-
+  //console.log(highlightedData);
   // uploaded File name
   const uploadedFileName = req.body.file_name;
 
@@ -47,7 +47,7 @@ router.post('/', (req, res) => {
   const dataArray = [];
 
   // breaking into chunks different key,value pairs
-  const arrayChunk = _.chunk(highlightedData, 2);
+  const arrayChunk = _.chunk(highlightedData, 3);
 
   const timeStampText = req.body.timeStampText;
   console.log("The timestamp Text is", timeStampText);
