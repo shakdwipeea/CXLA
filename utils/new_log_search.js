@@ -38,7 +38,7 @@ function searchDoubleHighlight(highlightTimestamp,param, filename, callback) {
             })
 
             .addListener('close', function () {
-                //console.log("IOFHT",indicies_of_highlighted_text);
+                console.log("IOFHT",indicies_of_highlighted_text);
                 for (var i = 0; i < indicies_of_highlighted_text[highlighted_text].length; i++) {
                     highlighted_1[indicies_of_highlighted_text[highlighted_text][i]] = "first";
                 }
@@ -50,7 +50,8 @@ function searchDoubleHighlight(highlightTimestamp,param, filename, callback) {
                 //console.log("Merged ",merged_objects);
                 var keys_of_mergedObjects = Object.keys(merged_objects);
                 //console.log("KEY",keys_of_mergedObjects);
-                if(indicies_of_highlighted_text[highlighted_text][0] < indicies_of_highlighted_text[highlighted_text_2][0]) {
+                if(indicies_of_highlighted_text[highlighted_text][0] < indicies_of_highlighted_text[highlighted_text_2][0] && false) {
+                    console.log("FIRST");
                     for (var l = 0; l < keys_of_mergedObjects.length - 1; l++) {
 
                         if (merged_objects[keys_of_mergedObjects[l]] === "first" && merged_objects[keys_of_mergedObjects[l + 1]] === "second") {
@@ -58,6 +59,7 @@ function searchDoubleHighlight(highlightTimestamp,param, filename, callback) {
                         }
                     }
                 } else {
+                    console.log("SECOND");
                     for (var y = 0; y < keys_of_mergedObjects.length - 1; y++) {
 
                         if (merged_objects[keys_of_mergedObjects[y]] === "second" && merged_objects[keys_of_mergedObjects[y + 1]] === "first") {
@@ -203,7 +205,7 @@ function findOccurence(data, highlighted_text, next_highlighted_text, indicies_o
     var new_string = new_regex.join("");
     //console.log(new_string);
     var regex = new RegExp(new_string, 'g');
-    console.log("REGEX",regex);
+    //console.log("REGEX",regex);
     var result = findIndex(regex, chunk_of_data, highlighted_text, next_highlighted_text, num, counter);
     var keyword = result[0];
     var indices = result[1];
