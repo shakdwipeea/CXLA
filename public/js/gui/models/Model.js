@@ -6,6 +6,7 @@
         this.keywords = [];
         this.fileName = "";
         this.timeStampSelectText = "";
+        this.metadataCounter = 0;
     }
 
     /**
@@ -48,6 +49,14 @@
     Model.prototype.storeSelectedText = function (selectedText, callback) {
         this.keywords.push(selectedText);
         console.log("Keywords updated", this.keywords);
+        this.metadataCounter++;
+
+        // Also get the line for which the selection was made
+        // This is only done when both the values and entiy are selected
+        if (this.metadataCounter % 2 === 0) {
+            this.keywords.push(window.getSelection().anchorNode.data);
+        }
+
         callback(this.keywords);
     };
 
@@ -65,7 +74,7 @@
     Model.prototype.postSelectedText = function (callback) {
         console.log("timeStampTet", this.timeStampSelectText);
 
-        if (this.keywords.length % 2 == 0) {
+        if (this.keywords.length % 3 == 0) {
             superagent
                 .post('/data')
                 .send({

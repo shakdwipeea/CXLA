@@ -29,7 +29,10 @@
         var template = this.defaultTemplate;
 
         var keywords = [];
-        for(var i = 0; i < keywordsArray.length; i+=2) {
+
+        // The third keyword is the line selected so ignore
+        // it safely
+        for(var i = 0; i < keywordsArray.length; i+=3) {
             var entry = {};
             entry.key = keywordsArray[i];
             entry.value = keywordsArray[i + 1];

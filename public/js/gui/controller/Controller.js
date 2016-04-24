@@ -107,13 +107,13 @@
         self.model.storeSelectedText(selectedText, function (keywords) {
             self.view.displayKeywords(keywords);
 
-            if (keywords.length % 2 === 0) {
+            console.log("keywords", keywords);
+            if (keywords.length % 3 === 0) {
                 self.view.changeNextText("Select Entity");
                 self.view.enablePlotCharts();
             } else {
                 self.view.changeNextText("Select Value");
             }
-
             //self.view.resetSelection();
 
         });
