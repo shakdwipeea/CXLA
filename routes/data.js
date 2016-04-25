@@ -38,7 +38,7 @@ router.post('/upload', (req, res) => {
 router.post('/ftp', (req,res) => {
   ftpClient.getFiles(req.body, (err) => {
   if(!err.success) {
-    res.json({error:err.msg});
+    res.status(404).json({error:err.msg});
   }
   else {
     var filename = req.body.source.split('/');

@@ -189,7 +189,8 @@
                             var credentials = self.view.getFTPCredentials();
                             console.log("credentials", credentials);
 
-                            self.model.getFTPFile(credentials, this.handleFTPResult);
+                            // Call api to get ftp file
+                            self.model.getFTPFile(credentials, self.handleFTPResult);
                         }
                     }
                 }
@@ -200,11 +201,18 @@
     /**
      * Request File from FTP
      */
-    Controller.prototype.handleFTPResult = function (err, body) {
+    Controller.prototype.handleFTPResult = function (err, res, filePath) {
         if (err) {
-            console.log();
-        } 
-        console.log("Fuck u");
+            console.log('Some Error occurred', err);
+
+            // Display an error toast, with a title
+            toastr.error('Sorry we could not retreive files from FTP.', 'FTP Error!')
+        } else {
+            var filenames = filePath.split('/');
+            toastr.success('Your file is being downloaded', 'Success');
+            download(res.text, filenames[filenames.length - 1], 'text/plain');            
+        }
+
     }
 
     /**
