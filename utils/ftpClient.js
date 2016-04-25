@@ -2,22 +2,24 @@ var JSFtp = require('jsftp');
 
 function getFiles(param, callback) {
     var Ftp = new JSFtp({
-        host:param.host
+        host:param.host,
+        port:param.port
     });
 
     Ftp.auth(param.username, param.password, function (err) {
        if (err) {
-           callback({success:false});
+           callback({msg:"Authentication failed",success:false});
        } else {
-           Ftp.get(param.source, __dirname + '/../public/data/ftp/' + param.filename , function(hadErr) {
+           var filename = param.source.split('/');
+           Ftp.get(param.source, __dirname + '/../public/data/ftp/' + filename[filename.length-1] , function(hadErr) {
                if (hadErr){
-                   console.error('There was an error retrieving the file.');
-               callback({success:false});
+                   //console.error('There was an error retrieving the file.');
+               callback({msg:"There was an error retrieving the file.",success:false});
            }
                else
                {
-                   console.log('File copied successfully!');
-                   callback({success:true});
+                   //console.log('File copied successfully!');
+                   callback({msg:"File copied successfully!",success:true});
                }
            });
        }

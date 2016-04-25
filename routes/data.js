@@ -38,10 +38,11 @@ router.post('/upload', (req, res) => {
 router.post('/ftp', (req,res) => {
   ftpClient.getFiles(req.body, (err) => {
   if(!err.success) {
-    res.json({error:"some error occured"});
+    res.json({error:err.msg});
   }
   else {
-    res.sendFile(path.join(__dirname, '../public/data/ftp', req.body.filename));
+    var filename = req.body.source.split('/');
+    res.sendFile(path.join(__dirname, '../public/data/ftp', filename[filename.length-1]));
   }
 })
 });
