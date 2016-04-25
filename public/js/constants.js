@@ -12,7 +12,8 @@
 			TIMESTAMP_SELECTED: "TIMESTAMP_SELECTED",
 			SAVE_CHART: "SAVE_CHART",
 			SEARCH_STRING: "SEARCH_STRING",
-			TRIGGER_INTRO: "TRIGGER_INTRO"
+			TRIGGER_INTRO: "TRIGGER_INTRO",
+			FTP_TRANSFER_REQUEST: "FTP_TRANSFER_REQUEST"
 		};
 
 		/**
@@ -23,6 +24,10 @@
 			CHART: {
 				name: 'CHART',
 				template: new app.Chart()
+			},
+			FTP_LOGIN: {
+				name: 'FTP_LOGIN',
+				template: new app.FTPLogin()
 			}
 		};
 

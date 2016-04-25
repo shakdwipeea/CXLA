@@ -68,6 +68,10 @@
             self.view.triggerIntro();
         });
 
+        self.view.bind(Events.FTP_TRANSFER_REQUEST, function () {
+            self.displayFTPDialog();
+        });
+
         // initialize the chart library
         // todo if chart library is not loaded when draw function
         // called
@@ -171,6 +175,37 @@
             self.view.resetView();
         });
     };
+
+    Controller.prototype.displayFTPDialog = function () {
+        var self = this;        
+        bootbox.dialog({
+                title: "FTP Login credentials",
+                message: self.view.getFTPLoginTemplate(),
+                buttons: {
+                    success: {
+                        label: "Get File",
+                        className: "btn-success",
+                        callback: function () {
+                            var credentials = self.view.getFTPCredentials();
+                            console.log("credentials", credentials);
+
+                            self.model.getFTPFile(credentials, this.handleFTPResult);
+                        }
+                    }
+                }
+            }
+        );
+    }
+
+    /**
+     * Request File from FTP
+     */
+    Controller.prototype.handleFTPResult = function (err, body) {
+        if (err) {
+            console.log();
+        } 
+        console.log("Fuck u");
+    }
 
     /**
      * Save timestamp text

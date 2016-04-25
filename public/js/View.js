@@ -11,6 +11,7 @@
          */
         this.template = template;
         this.chartTemplate = null;
+        this.ftpLoginTemplate = null;
 
         this.Events = Events;
         this.Templates = Templates;
@@ -51,6 +52,8 @@
 
         this.$go = document.getElementById('go');
         this.$help = document.getElementById('help');
+
+        this.$ftp = document.getElementById('ftp-file-login');
 
 
         this.initializeDashboard();
@@ -124,6 +127,12 @@
                 handler();
             });
         }
+
+        else if (event === self.Events.FTP_TRANSFER_REQUEST) {
+            self.$ftp.addEventListener('click', function () {
+                handler();
+            });
+        }
     };
 
     /**
@@ -176,6 +185,16 @@
         //initialize the template
         this.chartTemplate.initialize();
     };
+
+    /**
+     * Initialize and set up ftplogin temp-late
+     *
+     */
+    View.prototype.initializeFTPLoginTemplate = function () {
+        this.ftpLoginTemplate = this.Templates.FTP_LOGIN.template;
+
+        this.ftpLoginTemplate.initialize();
+    }
 
 
     View.prototype.drawBasic = function (data) {
@@ -280,6 +299,16 @@
 
     };
 
+    // Get the ftp login template  html
+    View.prototype.getFTPLoginTemplate = function () {
+        return this.ftpLoginTemplate.show();       
+    };
+
+    // Get ftp credentials as entered in the form
+    View.prototype.getFTPCredentials = function () {
+        return this.ftpLoginTemplate.getFormData();
+    }
+
     /**
      *
      * @param domElement Element in consideration
@@ -301,6 +330,10 @@
         changeVisiblity(this.$saveChart, false);
         changeVisiblity(this.$next, false);
         changeVisiblity(this.$go, false);
+
+
+        // prefetch ftp login template
+        this.initializeFTPLoginTemplate();
     };
 
     View.prototype.displayTimeStamp = function (text) {

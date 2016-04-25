@@ -110,6 +110,15 @@
             });
     };
 
+    Model.prototype.getFTPFile = function (credentials, callback) {
+        superagent.post('/data/ftp')
+            .send(credentials)
+            .end(function (err, res) {
+                console.log(err, res);
+                callback(err, res.body.data);
+            })
+    }
+
     /**
      * Reset button update the view
      * can also use sth like Dispatcher

@@ -65,9 +65,16 @@
 
 
 
-            <div class="form-group">
+            <div class="row form-group">
+                <div class="col-md-6">
                 <input data-step="1" data-intro="Select your log file" type="file" id="fileInput">
+                </div>
+                <div class="col-md-6">
+                <button id="ftp-file-login" class="btn btn-default">Get File from FTP</button>
+                </div>
             </div>
+
+           
 
         <div class="input-group">
         <input data-step="7" data-intro="You can also type strings you want to search"  class="form-control" type="text" placeholder="Enter search query. Press ENTER to search" name="search" id="searchQuery" >
@@ -142,6 +149,10 @@
 <script src="bower_components/axios/dist/axios.js"></script>
 <script src="bower_components/intro.js/intro.js"></script>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/vendor/bootbox.min.js"></script>
+
 
 <script src="js/Controller.js"></script>
 <script src="js/Model.js"></script>
@@ -149,6 +160,7 @@
 
 <script src="js/templates/ChartDisplay.js"></script>
 <script src="js/templates/KeywordDisplay.js"></script>
+<script type="text/javascript" src="js/templates/ftpLogin.js"></script>
 
 <script src="js/constants.js"></script>
 <script src="js/app.js"></script>
