@@ -43,21 +43,21 @@
         <div>
             <div class="row">
                 <div class="col-md-3">
-                    <button data-step="10" data-intro="You can start this intro anytime by clicking here"  class="btn btn-default btn-sm pull-left" type="reset" id="help" name="button" >
+                    <button data-step="11" data-intro="You can start this intro anytime by clicking here"  class="btn btn-default btn-sm pull-left" type="reset" id="help" name="button" >
                         <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Help</button>
                 </div>
                 <div class="col-md-offset-6 col-md-3" >
-                    <button data-step="6" data-intro="Reset selected data"  class="btn btn-default btn-sm pull-right" type="reset" name="button" id="reset">
+                    <button data-step="7" data-intro="Reset selected data"  class="btn btn-default btn-sm pull-right" type="reset" name="button" id="reset">
                         <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Reset</button>
                 </div>
             </div>
-            <div class="row panel" data-step="4" data-intro="Your selected key value pairs will appear here " id="keywords">
+            <div class="row panel" data-step="5" data-intro="Your selected key value pairs will appear here " id="keywords">
 
             </div>
             <div class="row">
 
             <div class="col-md-offset-9 col-md-3" >
-                <button data-step="5" data-intro="Click this button to plot charts for your selected key value pairs."  class="btn btn-danger btn-block pull-right" type="submit" name="button" id="done">
+                <button data-step="6" data-intro="Click this button to plot charts for your selected key value pairs."  class="btn btn-danger btn-block pull-right" type="submit" name="button" id="done">
                     <span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Plot Chart</button>
             </div>
             </div>
@@ -71,14 +71,14 @@
                 <input data-step="1" data-intro="Select your log file" type="file" id="fileInput">
                 </div>
                 <div class="col-md-6">
-                <button id="ftp-file-login" class="btn btn-default">Get File from FTP</button>
+                <button data-step="2" data-intro = "Get your Files via FTP" id="ftp-file-login" class="btn btn-default">Get File from FTP</button>
                 </div>
             </div>
 
            
 
         <div class="input-group">
-        <input data-step="7" data-intro="You can also type strings you want to search"  class="form-control" type="text" placeholder="Enter search query. Press ENTER to search" name="search" id="searchQuery" >
+        <input data-step="8" data-intro="You can also type strings you want to search"  class="form-control" type="text" placeholder="Enter search query. Press ENTER to search" name="search" id="searchQuery" >
         <span class="input-group-btn">
         <button class="btn btn-default" id="go" type="button">Plot.</button>
       </span>
@@ -93,11 +93,11 @@
         <hr />
         <div class="row">
             <div class="col-lg-offset-10 col-lg-2">
-                <button  data-step="9" data-intro="You can save your graphs by clicking this button" class="btn btn-success btn-lg" id="save-chart">
+                <button  data-step="9" data-position="top" data-intro="You can save your graphs by clicking this button" class="btn btn-success btn-lg" id="save-chart">
                     <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Save Chart</button>
             </div>
             </div>
-        <div data-step="8" data-intro="You graphs will appear here" id="chart_div"></div>
+        <div data-step="10" data-position="top" data-intro="You graphs will appear here" id="chart_div"></div>
 
 
         <!--<div id="saved-charts-container">
@@ -124,11 +124,11 @@
 
             <div class="col-lg-4">
                 <div class="pull-right">
-                <button data-step="2"
+                <button data-step="3"
                         data-intro="Highlight timestamp for your logs"
                         class="btn btn-primary btn-lg" id="timestamp-select" >Select Timestamp</button>
 
-                <button data-step="3"
+                <button data-step="4"
                         data-position="top"
                         data-intro="You can highlight key-value pairs in which you are interested."
                         class="btn btn-primary btn-lg" type="submit" name="button" id="next"  >Select Entity</button>
