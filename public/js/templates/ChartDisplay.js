@@ -16,7 +16,7 @@
      */
     Chart.prototype.initialize = function () {
         var self = this;
-        superagent.get('/js/gui/templates/chartDisplay.html')
+        superagent.get('/js/templates/chartDisplay.html')
             .end(function (err, res) {
                 console.log("Error occured while retreiving", err);
                var source = res.text;

@@ -38,7 +38,8 @@ function searchDoubleHighlight(highlightTimestamp,param, filename, callback) {
             })
 
             .addListener('close', function () {
-                console.log("IOFHT",indicies_of_highlighted_text);
+                var entity = param[2].indexOf(highlighted_text);
+                var pattern = param[2].indexOf(highlighted_text_2);
                 for (var i = 0; i < indicies_of_highlighted_text[highlighted_text].length; i++) {
                     highlighted_1[indicies_of_highlighted_text[highlighted_text][i]] = "first";
                 }
@@ -50,8 +51,8 @@ function searchDoubleHighlight(highlightTimestamp,param, filename, callback) {
                 //console.log("Merged ",merged_objects);
                 var keys_of_mergedObjects = Object.keys(merged_objects);
                 //console.log("KEY",keys_of_mergedObjects);
-                if(indicies_of_highlighted_text[highlighted_text][0] < indicies_of_highlighted_text[highlighted_text_2][0] && false) {
-                    console.log("FIRST");
+                if(entity < pattern) {
+                    //console.log("FIRST");
                     for (var l = 0; l < keys_of_mergedObjects.length - 1; l++) {
 
                         if (merged_objects[keys_of_mergedObjects[l]] === "first" && merged_objects[keys_of_mergedObjects[l + 1]] === "second") {
@@ -59,7 +60,7 @@ function searchDoubleHighlight(highlightTimestamp,param, filename, callback) {
                         }
                     }
                 } else {
-                    console.log("SECOND");
+                    //console.log("SECOND");
                     for (var y = 0; y < keys_of_mergedObjects.length - 1; y++) {
 
                         if (merged_objects[keys_of_mergedObjects[y]] === "second" && merged_objects[keys_of_mergedObjects[y + 1]] === "first") {

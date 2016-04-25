@@ -13,7 +13,7 @@
     Dashboard.prototype.initialize = function () {
         var self = this;
         superagent
-            .get('js/gui/templates/keywordDisplay.html')
+            .get('js/templates/keywordDisplay.html')
             .end(function (err, res) {
                 self.source = res.text;
                 self.defaultTemplate = Handlebars.compile(self.source);
