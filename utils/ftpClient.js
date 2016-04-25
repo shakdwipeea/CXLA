@@ -9,7 +9,7 @@ function getFiles(param, callback) {
        if (err) {
            callback({success:false});
        } else {
-           Ftp.get(param.source, param.destination, function(hadErr) {
+           Ftp.get(param.source, __dirname + '/../public/data/ftp/' + param.filename , function(hadErr) {
                if (hadErr){
                    console.error('There was an error retrieving the file.');
                callback({success:false});
