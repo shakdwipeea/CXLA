@@ -72,6 +72,10 @@
             self.displayFTPDialog();
         });
 
+        self.view.bind(Events.SEARCH_ENTITY, function (query) {
+            self.searchEntity(query);
+        })
+
         // initialize the chart library
         // todo if chart library is not loaded when draw function
         // called
@@ -213,6 +217,13 @@
             download(res.text, filenames[filenames.length - 1], 'text/plain');            
         }
 
+    }
+
+    Controller.prototype.searchEntity = function (query) {
+        var self = this;
+        this.model.performEntitySearch(query, function (data) {
+            self.view.displayFileData(data);
+        });
     }
 
     /**

@@ -55,6 +55,7 @@
 
         this.$ftp = document.getElementById('ftp-file-login');
 
+        this.$entityQuery = document.getElementById('entity-query');
 
         this.initializeDashboard();
     }
@@ -132,6 +133,14 @@
             self.$ftp.addEventListener('click', function () {
                 handler();
             });
+        }
+
+        else if (event === self.Events.SEARCH_ENTITY) {
+            self.$entityQuery.addEventListener('keydown', function (e) {
+                if (e.keyCode === self.ENTER_KEY) {
+                    handler(self.$entityQuery.value);
+                }
+            })
         }
     };
 

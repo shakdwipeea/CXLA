@@ -7,6 +7,7 @@
         this.fileName = "";
         this.timeStampSelectText = "";
         this.metadataCounter = 0;
+        this.file = null;
     }
 
     /**
@@ -25,6 +26,7 @@
         reader.readAsText(file);
 
         this.fileName = file.name;
+        this.file = file;
 
         superagent
             .post('/data/upload')
@@ -117,6 +119,24 @@
                 console.log(err, res);
                 callback(err, res, credentials.source);
             })
+    }
+
+    Model.prototype.performEntitySearch = function (query, callback) {
+        var reader = new FileReader();
+        reader.onload = function (event) {
+            var readFileData = event.target.result;
+            var index = readFileData.search(query); 
+            
+            console.log("IUndex is ", index)
+            var data = readFileData.substring(index - 600)
+                .split('\n')
+                .splice(0, 200)
+                .join("<br />");
+                
+            callback(data);
+        };
+
+        reader.readAsText(this.file)
     }
 
     /**
