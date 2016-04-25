@@ -2,7 +2,8 @@ var JSFtp = require('jsftp');
 
 function getFiles(param, callback) {
     var Ftp = new JSFtp({
-        host:param.host
+        host:param.host,
+        port:param.port
     });
 
     Ftp.auth(param.username, param.password, function (err) {
