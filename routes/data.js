@@ -3,6 +3,7 @@ var router = express.Router();
 var fs = require('fs');
 var searchDoubleHighlight = require('../utils/new_log_search');
 var searchKeyword = require('../utils/keyword_search');
+var ftpClient = require('../utils/ftpClient');
 var _ = require('lodash');
 var async = require('async');
 
@@ -33,6 +34,16 @@ router.post('/upload', (req, res) => {
   });
 });
 
+router.post('/ftp', (req,res) => {
+  ftpClient.getFiles(req.body, (err) => {
+  if(!err.success) {
+    res.json({error:"some error occured"});
+  }
+  else {
+    res.json({msg:"copied"});
+  }
+})
+});
 
 router.post('/', (req, res) => {
   // stores one or more highlighted key,value pair
