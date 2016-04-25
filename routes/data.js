@@ -6,6 +6,7 @@ var searchKeyword = require('../utils/keyword_search');
 var ftpClient = require('../utils/ftpClient');
 var _ = require('lodash');
 var async = require('async');
+var path = require('path');
 
 const dataDirectory = '/../public/data/';
 
@@ -40,7 +41,7 @@ router.post('/ftp', (req,res) => {
     res.json({error:"some error occured"});
   }
   else {
-    res.json({msg:"copied"});
+    res.sendFile(path.join(__dirname, '../public/data/ftp', req.body.filename));
   }
 })
 });
