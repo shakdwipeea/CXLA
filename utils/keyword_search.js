@@ -26,7 +26,7 @@ function searchKeyword(highlightTimestamp, keywords, filename, callback) {
         var counter = 0;
         stream
             .on('data', function (data) {
-                console.log("keywords", keywords);
+                //console.log("keywords", keywords);
                 find_indicies(data, keywords, searched_keyword, counter);
                 counter += data.length;
             })
@@ -57,7 +57,7 @@ function searchKeyword(highlightTimestamp, keywords, filename, callback) {
                 for (var k = 0; k < keyword_indices_list.length; k++) {
                     merge_object_2[keyword_indices_list[k]] = "searched";
                 }
-
+                //console.log(keyword_indices_list);
                 //merging of above objects
                 var merged_object = _.merge(merge_object_1, merge_object_2);
                 //console.log(merged_object);
@@ -90,7 +90,8 @@ function searchKeyword(highlightTimestamp, keywords, filename, callback) {
                 var keyOfMergedLast = parseInt(key_of_merged_object[indicies_of_time[a]]);
                 var getKeyLast = time_stamp.getKeyByValue(keyOfMergedLast);
                 final_data[getKeyLast] = lengthOfMerged - indicies_of_time[indicies_of_time.length - 1] - 1;
-                callback(final_data);
+                var finalArray = [final_data,keyword_indices_list]
+                callback(finalArray);
             });
     });
 }

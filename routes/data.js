@@ -17,8 +17,19 @@ router.post('/search', (req, res) => {
 
   const highlightedTimestamp = req.body.timeStampText;
   searchKeyword(highlightedTimestamp, req.body.keywords, filePath, (searchedKeyword) => {
-    res.json({ data: searchedKeyword });
+    res.json({ data: searchedKeyword[0] });
   });
+});
+
+router.post('/searchEntity', (req, res) => {
+  // uploaded File name
+  const uploadedFile = req.body.file_name;
+const filePath = `${__dirname}${dataDirectory}${uploadedFile}`;
+
+const highlightedTimestamp = req.body.timeStampText;
+searchKeyword(highlightedTimestamp, req.body.keywords, filePath, (searchedKeyword) => {
+  res.json({ data: searchedKeyword[1] });
+});
 });
 
 
