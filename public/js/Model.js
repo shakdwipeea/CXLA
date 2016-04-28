@@ -8,6 +8,9 @@
         this.timeStampSelectText = "";
         this.metadataCounter = 0;
         this.file = null;
+        this.indices = [];
+        this.curIndex = 0;
+        this.query = 0;
     }
 
     /**
@@ -122,17 +125,41 @@
     }
 
     Model.prototype.performEntitySearch = function (query, callback) {
+        var self = this;
+        this.query = query;
+        superagent.post('/data/searchEntity')
+            .send({
+                file_name: this.fileName,
+                keywords: query,
+                timeStampText: this.timeStampSelectText
+            })
+            .end(function (err, res) {
+                console.log(err, res);
+                self.indices = res.body.data;
+                self.getFileData(self.curIndex, callback);                
+            });
+    }
+
+    Model.prototype.getDisplayText = function (callback) {
+        this.curIndex += 1
+        this.getFileData(this.curIndex, callback);
+    }
+    //todo:write comment
+    Model.prototype.getFileData = function (index, callback) {
+        console.log("Procesing index", index);
+
+        var self = this;
         var reader = new FileReader();
         reader.onload = function (event) {
             var readFileData = event.target.result;
-            var index = readFileData.search(query); 
-            
-            console.log("IUndex is ", index)
-            var data = readFileData.substring(index - 600)
+            var i = self.indices[index];
+
+            console.log("IUndex is ", i)
+            var data = readFileData.substring(i - 600)
                 .split('\n')
                 .splice(0, 200)
                 .join("<br />");
-                
+
             callback(data);
         };
 

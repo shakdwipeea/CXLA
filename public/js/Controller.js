@@ -76,6 +76,10 @@
             self.searchEntity(query);
         })
 
+        self.view.bind(Events.SEARCH_NEXT, function () {
+            self.searchNextEntity();
+        })
+
         // initialize the chart library
         // todo if chart library is not loaded when draw function
         // called
@@ -225,6 +229,15 @@
             self.view.displayFileData(data);
         });
     }
+
+    Controller.prototype.searchNextEntity = function () {
+        var self = this;
+        this.model.getDisplayText(function (data) {
+            self.view.displayFileData(data);
+        });
+    }
+
+   
 
     /**
      * Save timestamp text

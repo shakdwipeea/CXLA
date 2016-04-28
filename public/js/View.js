@@ -56,6 +56,7 @@
         this.$ftp = document.getElementById('ftp-file-login');
 
         this.$entityQuery = document.getElementById('entity-query');
+        this.$serachNext = document.getElementById('search-next')
 
         this.initializeDashboard();
     }
@@ -140,6 +141,11 @@
                 if (e.keyCode === self.ENTER_KEY) {
                     handler(self.$entityQuery.value);
                 }
+            })
+        }
+        else if (event === self.Events.SEARCH_NEXT) {
+            self.$serachNext.addEventListener('click', function () {
+                handler();
             })
         }
     };

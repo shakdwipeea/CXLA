@@ -28,6 +28,7 @@ const filePath = `${__dirname}${dataDirectory}${uploadedFile}`;
 
 const highlightedTimestamp = req.body.timeStampText;
 searchKeyword(highlightedTimestamp, req.body.keywords, filePath, (searchedKeyword) => {
+  console.log(searchedKeyword[1]);
   res.json({ data: searchedKeyword[1] });
 });
 });
