@@ -46,6 +46,10 @@
     "eslint-config-airbnb": "^6.1.0",
     "eslint-plugin-react": "^4.2.0"
   },
+  "directories": {
+    "data": "./public/data/",
+    "ftp": "./public/data/ftp"
+  },
   "bin": {
     "cxla": "bin/www"
   },
