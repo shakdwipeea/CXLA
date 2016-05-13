@@ -1,9 +1,9 @@
 {
   "name": "cxla",
-  "version": "1.9.10",
+  "version": "2.0.0",
   "scripts": {
     "start": "node ./bin/www",
-    "patch-release": "npm version patch && npm publish && git push origin --follow-tags"
+    "patch-release": "npm version patch && npm publish"
   },
   "repository": {
     "type": "git",
