@@ -90,7 +90,7 @@ function searchKeyword(highlightTimestamp, keywords, filename, callback) {
                 var keyOfMergedLast = parseInt(key_of_merged_object[indicies_of_time[a]]);
                 var getKeyLast = time_stamp.getKeyByValue(keyOfMergedLast);
                 final_data[getKeyLast] = lengthOfMerged - indicies_of_time[indicies_of_time.length - 1] - 1;
-                var finalArray = [final_data,keyword_indices_list]
+                var finalArray = [final_data,keyword_indices_list];
                 callback(finalArray);
             });
     });
@@ -107,8 +107,9 @@ function find_indicies(data, keywords, searched_keyword, counter) {
         }
 
         else if (keywords[i] === '.' || keywords[i] === '[' || keywords[i] === ']' ||
-            keywords[i] === ':' || keywords[i] === '/' || keywords[i] === '(' ||
-            keywords[i] === ')') {
+                 keywords[i] === ':' || keywords[i] === '/' || keywords[i] === '(' ||
+                 keywords[i] === ')' || keywords[i] === '_' || keywords[i] === '?' ||
+                 keywords[i] === '-' || keywords[i] === ',') {
 
             new_regex.push('\\');
             new_regex.push(keywords[i]);

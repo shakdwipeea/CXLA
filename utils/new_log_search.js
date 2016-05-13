@@ -123,8 +123,10 @@ function findOccurence(data, highlighted_text, next_highlighted_text, indicies_o
         }
 
         else if (highlighted_text[0] === '[' || highlighted_text[0] === ']' ||
-            highlighted_text[0] === ':' || highlighted_text[0] === '/' || highlighted_text[0] === '(' ||
-            highlighted_text[0] === ')' || highlighted_text[0] === ',' || highlighted_text[0] === '-' || highlighted_text[0] === '_') {
+                 highlighted_text[0] === ':' || highlighted_text[0] === '/' || 
+                 highlighted_text[0] === '(' || highlighted_text[0] === ')' || 
+                 highlighted_text[0] === ',' || highlighted_text[0] === '-' || 
+                 highlighted_text[0] === '_' || highlighted_text[j] === '?') {
 
 
             new_regex.push('\\');
@@ -156,8 +158,10 @@ function findOccurence(data, highlighted_text, next_highlighted_text, indicies_o
             }
 
             else if (highlighted_text[j] === '[' || highlighted_text[j] === ']' ||
-                highlighted_text[j] === ':' || highlighted_text[j] === '/' || highlighted_text[j] === '(' ||
-                highlighted_text[j] === ')' || highlighted_text[j] === ',' || highlighted_text[j] === '-' || highlighted_text[j] === '_') {
+                     highlighted_text[j] === ':' || highlighted_text[j] === '/' || 
+                     highlighted_text[j] === '(' || highlighted_text[j] === ')' || 
+                     highlighted_text[j] === ',' || highlighted_text[j] === '-' ||
+                     highlighted_text[j] === '_' || highlighted_text[j] === '?') {
 
                 flag = 1;
                 new_regex.push('\\');
@@ -186,9 +190,11 @@ function findOccurence(data, highlighted_text, next_highlighted_text, indicies_o
                 new_regex.push('\\s');
             }
 
-            else if (highlighted_text[i] === '.' || highlighted_text[i] === '[' || highlighted_text[i] === ']' ||
-                highlighted_text[i] === ':' || highlighted_text[i] === '/' || highlighted_text[i] === '(' ||
-                highlighted_text[i] === ')') {
+            else if (highlighted_text[i] === '.' || highlighted_text[i] === '[' || 
+                     highlighted_text[i] === ']' || highlighted_text[i] === ':' || 
+                     highlighted_text[i] === '/' || highlighted_text[i] === '(' ||
+                     highlighted_text[i] === ')' || highlighted_text[i] === '?' ||
+                     highlighted_text[i] === '_' || highlighted_text[i] === '-') {
 
                 new_regex.push('\\');
                 new_regex.push(highlighted_text[i]);
