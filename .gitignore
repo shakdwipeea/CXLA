@@ -3,3 +3,5 @@ data
 .idea
 *.log
 node_log
+postdata.txt
+prof/
