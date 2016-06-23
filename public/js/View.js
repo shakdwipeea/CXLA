@@ -337,7 +337,7 @@
         var savedChartDiv = document.createElement('div');
         savedChartDiv.innerHTML = HTMLForChart;
 
-        this.$savedChartsContainer.insertBefore(savedChartDiv, this.$savedCharts);
+        this.$savedCharts.appendChild(savedChartDiv);
         //this.$savedCharts.innerHTML = "Ctrl + P to print charts";
 
         // clear current chart
@@ -352,6 +352,10 @@
                 link.download = 'chart.jpeg';
                 link.href = url;
                 link.click();
+            })
+            .catch(function (reason) {
+                console.log(reason);
+                toastr.error(reason);
             })
     };
 
