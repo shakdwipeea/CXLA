@@ -241,10 +241,11 @@
                     toolTip = parseInt(data[i][key])
                     tempArray.push(toolTip);
                 }
+
+                // tooltip
+                tempArray.push(key + '\n' + toolTip);
             }
 
-            // tooltip
-            tempArray.push(key + '\n' + toolTip);
             modifiedData.push(tempArray);
         });
 
