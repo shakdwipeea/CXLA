@@ -74,11 +74,15 @@
 
         self.view.bind(Events.SEARCH_ENTITY, function (query) {
             self.searchEntity(query);
-        })
+        });
 
         self.view.bind(Events.SEARCH_NEXT, function () {
             self.searchNextEntity();
-        })
+        });
+
+        self.view.bind(Events.DOWNLOAD_IMAGE, function () {
+             self.view.domToImage();
+        });
 
         // initialize the chart library
         // todo if chart library is not loaded when draw function

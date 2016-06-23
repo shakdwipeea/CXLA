@@ -56,7 +56,9 @@
         this.$ftp = document.getElementById('ftp-file-login');
 
         this.$entityQuery = document.getElementById('entity-query');
-        this.$serachNext = document.getElementById('search-next')
+        this.$serachNext = document.getElementById('search-next');
+        
+        this.$downlad = document.getElementById('download');
 
         this.initializeDashboard();
     }
@@ -143,10 +145,17 @@
                 }
             })
         }
+            
         else if (event === self.Events.SEARCH_NEXT) {
             self.$serachNext.addEventListener('click', function () {
                 handler();
             })
+        }
+        
+        else if (event === self.Events.DOWNLOAD_IMAGE) {
+            self.$downlad.addEventListener('click', function () {
+                handler();
+            });
         }
     };
 
@@ -217,25 +226,36 @@
 
         var modifiedData = [];
         //todo this in controller
-        Object.keys(data[0]).forEach(function (key) {
+        Object.keys(data[0]).forEach(function (key, index) {
             var tempArray = [];
-            tempArray.push(key);
+
+            var toolTip;
+
+            // represented along x axis
+            tempArray.push(index);
             for(var i=0;i<data.length;i++){
-                if(data[i][key].indexOf('.') != -1)
-                    tempArray.push(parseFloat(data[i][key]));
-                else
-                    tempArray.push(parseInt(data[i][key]));
+                if(data[i][key].indexOf('.') != -1) {
+                    toolTip = parseFloat(data[i][key]);
+                    tempArray.push(toolTip);
+                } else {
+                    toolTip = parseInt(data[i][key])
+                    tempArray.push(toolTip);
+                }
             }
+
+            // tooltip
+            tempArray.push(key + '\n' + toolTip);
             modifiedData.push(tempArray);
         });
 
         console.log("Modified data is ", modifiedData)
 
         var dataTable = new google.visualization.DataTable();
-        dataTable.addColumn("string","time");
+        dataTable.addColumn("number","time");
         console.log("DATA",data);
         for(var i=0;i<data.length;i++){
             dataTable.addColumn("number", document.getElementById(i).value);
+            dataTable.addColumn({type: 'string', role: 'tooltip'});
         }
         dataTable.addRows(modifiedData);
 
@@ -249,13 +269,17 @@
 
         //todo abstract
         var options = {
-            hAxis: {
-                title: 'Time'
-            },
             vAxis: {
                 title: ''
             },
-            pointSize:5
+            height: 400,
+            pointSize:5,
+            explorer: {
+                actions: ['dragToZoom', 'rightClickToReset'],
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 4.0
+            }
         };
 
         var chart = new google.visualization.LineChart(this.$chart);
@@ -264,11 +288,12 @@
 
     View.prototype.drawListing = function (data) {
         var modifiedData = [];
-        modifiedData.push(['time','count']);
-        Object.keys(data).forEach(function (key) {
+        modifiedData.push(['time','count', {type: 'string', role: 'tooltip'}]);
+        Object.keys(data).forEach(function (key, index) {
             var tempArray = [];
-            tempArray.push(key);
+            tempArray.push(index);
             tempArray.push(data[key]);
+            tempArray.push(key + '\n' + data[key]);
             modifiedData.push(tempArray);
         });
         console.log("modified",modifiedData);
@@ -279,7 +304,13 @@
             hAxis: {title: 'time', minValue: 0, maxValue: 2},
             //vAxis: {title: 'count', minValue: 0, maxValue: 15},
             width:1200,
-            legend: 'none'
+            legend: 'none',
+            explorer: {
+                actions: ['dragToZoom', 'rightClickToReset'],
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 4.0
+            }
         };
 
         var chart = new google.visualization.ScatterChart(this.$chart);
@@ -314,6 +345,16 @@
 
     };
 
+    View.prototype.domToImage = function () {
+        domtoimage.toJpeg(this.$savedCharts)
+            .then(function (url) {
+                var link = document.createElement('a');
+                link.download = 'chart.jpeg';
+                link.href = url;
+                link.click();
+            })
+    };
+
     // Get the ftp login template  html
     View.prototype.getFTPLoginTemplate = function () {
         return this.ftpLoginTemplate.show();       
@@ -322,7 +363,7 @@
     // Get ftp credentials as entered in the form
     View.prototype.getFTPCredentials = function () {
         return this.ftpLoginTemplate.getFormData();
-    }
+    };
 
     /**
      *
@@ -337,7 +378,7 @@
             domElement.setAttribute("disabled", "disabled");
         }
 
-    };
+    }
 
     View.prototype.initializeDashboard = function () {
         changeVisiblity(this.$selectTimestamp, false);
