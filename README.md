@@ -35,31 +35,33 @@ Add node-v5.9.0-linux-x64/bin to the system path.
 1.Open ~/.bashrc in your editor
 
 2.Type in
-export PATH=$PATH:/path/to/your/directory/node-v5.9.0-linux-x64/bin  
+```export PATH=$PATH:/path/to/your/directory/node-v5.9.0-linux-x64/bin  ```
 3.Finally after saving the file
 
 In terminal type
+```sh
 source ~/.bashrc
+```
 
 
 
 ###Installation
 
-1. ``` git clone https://github.com/shakdwipeea/CXLA.git```
+* ``` git clone https://github.com/shakdwipeea/CXLA.git```
 
-2. Move to the directory CXLA
+* Move to the directory CXLA
 ```sh
 cd CXLA/
 ```
 
-3. Install web dependencies
+* Install web dependencies
 ```sh
 npm install -g bower
 cd public/
 bower install
 ```
 
-4. Go to project directory
+* Go to project directory
 ```
 cd ../
 npm install
@@ -78,7 +80,7 @@ OR
 cd ../
 node ./bin/www
 ```
-5. Now visit ```localhost:8080```
+* Now visit ```localhost:8080```
 
 
 ------------
