@@ -48,6 +48,9 @@ source ~/.bashrc
 1. ``` git clone https://github.com/shakdwipeea/CXLA.git```
 
 2. Move to the directory CXLA
+```sh
+cd CXLA/
+```
 
 3. Install web dependencies
 ```sh
@@ -56,23 +59,26 @@ cd public/
 bower install
 ```
 
-3. Inside the directory
+4. Go to project directory
 ```
+cd ../
 npm install
 npm install -g pm2
 pm2 start bin/www
 ```
 OR
 ```
+cd ../
 npm install -g nodemon
 nodemon
 ```
 OR
 
 ```
+cd ../
 node ./bin/www
 ```
-4. Now visit ```localhost:8080```
+5. Now visit ```localhost:8080```
 
 
 ------------
