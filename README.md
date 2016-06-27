@@ -49,6 +49,13 @@ source ~/.bashrc
 
 2. Move to the directory CXLA
 
+3. Install web dependencies
+```sh
+npm install -g bower
+cd public/
+bower install
+```
+
 3. Inside the directory
 ```
 npm install
