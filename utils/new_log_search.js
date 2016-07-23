@@ -113,71 +113,46 @@ function findOccurence(data, highlighted_text, next_highlighted_text, indicies_o
 
 
     if (highlighted_text === next_highlighted_text) {
-        if (highlighted_text[0] === '.') {
-        }
-
-        else if (highlighted_text[0] === ' ') {
-            //if(j==0)new_regex.push('\\s');
-            new_regex.push('\\s');
-
-        }
-
-        else if (highlighted_text[0] === '[' || highlighted_text[0] === ']' ||
-                 highlighted_text[0] === ':' || highlighted_text[0] === '/' || 
-                 highlighted_text[0] === '(' || highlighted_text[0] === ')' || 
-                 highlighted_text[0] === ',' || highlighted_text[0] === '-' || 
-                 highlighted_text[0] === '_' || highlighted_text[j] === '?') {
-
-
-            new_regex.push('\\');
-            new_regex.push(highlighted_text[0]);
-        }
-
-        else if (!isNaN(highlighted_text[0])) {
-
-
-            new_regex.push(digit_group);
-
-        }
-
-        else {
-            new_regex.push(highlighted_text[0]);
-        }
-        for (var j = 1; j < highlighted_text.length; j++) {
+        for (var j = 0; j < highlighted_text.length; j++) {
 
             if (highlighted_text[j] === '.') {
-                flag = 1;
+
             }
 
             else if (highlighted_text[j] === ' ') {
-
-                if(flag == 1){
+                if(flag === 1){
                     new_regex.push('\\s+');
+                    flag = 0;
+                }
 
-                    flag = 0;}
             }
 
             else if (highlighted_text[j] === '[' || highlighted_text[j] === ']' ||
-                     highlighted_text[j] === ':' || highlighted_text[j] === '/' || 
-                     highlighted_text[j] === '(' || highlighted_text[j] === ')' || 
-                     highlighted_text[j] === ',' || highlighted_text[j] === '-' ||
-                     highlighted_text[j] === '_' || highlighted_text[j] === '?') {
+                highlighted_text[j] === ':' || highlighted_text[j] === '/' ||
+                highlighted_text[j] === '(' || highlighted_text[j] === ')' ||
+                highlighted_text[j] === ',' || highlighted_text[j] === '-' ||
+                highlighted_text[j] === '_' || highlighted_text[j] === '?') {
 
-                flag = 1;
                 new_regex.push('\\');
                 new_regex.push(highlighted_text[j]);
+
             }
 
-            else if (/^\d+$/.test(highlighted_text[j]) && !/^\d+$/.test(highlighted_text[j-1])) {
+            else if (/^\d+$/.test(highlighted_text[j]) && !(/^\d+$/.test(highlighted_text[j-1]) || highlighted_text[j-1] === '.')) {
                 new_regex.push(digit_group);
-                flag = 1;
- 
+
             }
             else if (/^\d+$/.test(highlighted_text[j]) && /^\d+$/.test(highlighted_text[j-1])) {
                 flag = 1;
+
+            }
+            else if (/^\d+$/.test(highlighted_text[j]) && (highlighted_text[j-1] === '.')) {
+                flag = 1;
+
             }
             else {
                 new_regex.push(highlighted_text[j]);
+
             }
         }
       
