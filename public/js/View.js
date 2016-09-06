@@ -279,7 +279,7 @@
                 actions: ['dragToZoom', 'rightClickToReset'],
                 axis: 'horizontal',
                 keepInBounds: true,
-                maxZoomIn: 4.0
+                maxZoomIn: 100.0
             }
         };
 
@@ -310,7 +310,7 @@
                 actions: ['dragToZoom', 'rightClickToReset'],
                 axis: 'horizontal',
                 keepInBounds: true,
-                maxZoomIn: 4.0
+                maxZoomIn: 100.0
             }
         };
 
