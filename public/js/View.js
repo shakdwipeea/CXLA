@@ -275,6 +275,7 @@
             },
             height: 400,
             pointSize:5,
+            colors: ['#e0440e', '#4888d8', '#5e8617', '#383838', '#9e379f', '#457084', '#ea018d', '#602320', '#66ccff', '#4d5d53'],
             explorer: {
                 actions: ['dragToZoom', 'rightClickToReset'],
                 axis: 'horizontal',
